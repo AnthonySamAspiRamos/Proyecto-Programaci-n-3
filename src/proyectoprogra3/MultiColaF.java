@@ -5,7 +5,7 @@ public class MultiColaF {
     private CCircF f[]=new CCircF[15];
     
     public MultiColaF(){
-        for(int i=1 ; i<=15 ; i++){
+        for(int i=1 ; i<=14 ; i++){
             f[i]=new CCircF();
         }
     }

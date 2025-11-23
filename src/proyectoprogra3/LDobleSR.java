@@ -15,13 +15,13 @@ public class LDobleSR {
         this.p = p;
     }
     
-    public void adicionar(int np, int idf, int idmd, LSimplePR pa,LDobleJ ju) {
+    public void adicionar(int np, int idf, int idmd,LDobleJ ju, LSimplePR pa) {
 		NodoSR nue=new NodoSR();
 		nue.setNroPuesto(np);
                 nue.setIdFeria(idf);
                 nue.setId_Componentes(idmd);
-                nue.setLpr(pa);
                 nue.setLj(ju);
+                nue.setLpr(pa);
 		if(getP()==null) {
 			setP(nue);
 		}

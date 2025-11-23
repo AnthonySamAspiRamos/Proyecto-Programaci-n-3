@@ -2,18 +2,19 @@ package proyectoprogra3;
 
 public class Feria {
     private int IdFeria;
-    private String nombre, Fecha_Ini, Fecha_Fin, Hora_Ini, Hora_Fin;
+    private String nombre, Fecha_Ini, Fecha_Fin, Hora_Ini, Hora_Fin, ubicacion;
     private LDobleSI lsi;
     private LDobleSA lsa;
     private LDobleSR lsr;
     
-    public Feria(int id, String nom, String fi,String ff, String hi, String hf, LDobleSI si,LDobleSA sa,LDobleSR sr){
+    public Feria(int id, String nom, String fi,String ff, String hi, String hf, String ubi, LDobleSI si,LDobleSA sa,LDobleSR sr){
         IdFeria=id;
         nombre=nom;
         Fecha_Ini=fi;
         Fecha_Fin=ff;
         Hora_Ini=hi;
         Hora_Fin=hf;
+        ubicacion=ubi;
         lsi=si;
         lsa=sa;
         lsr=sr;
@@ -21,7 +22,7 @@ public class Feria {
     
     public void mostrar(){
         System.out.println("======== FERIA: ========");
-        System.out.println("Nombre: "+nombre+" | Fecha de Inicio: "+Fecha_Ini+" | Fecha Final: "+Fecha_Fin+" | Hora iniciada: "+Hora_Ini+" | Hora Final: "+Hora_Fin);
+        System.out.println("Nombre: "+nombre+" | Fecha de Inicio: "+Fecha_Ini+" | Fecha Final: "+Fecha_Fin+" | Hora iniciada: "+Hora_Ini+" | Hora Final: "+Hora_Fin+" | Ubicacion: "+ubicacion);
         System.out.println("-- Lista de Stands Informativos: --");
         lsi.mostrar();
         System.out.println("-- Lista de Stands de Atencion: --");
@@ -56,6 +57,14 @@ public class Feria {
 
     public String getFecha_Fin() {
         return Fecha_Fin;
+    }
+
+    public String getUbicacion() {
+        return ubicacion;
+    }
+
+    public void setUbicacion(String ubicacion) {
+        this.ubicacion = ubicacion;
     }
 
     public void setFecha_Fin(String Fecha_Fin) {
