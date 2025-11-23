@@ -74,7 +74,7 @@ public class LSimpleC {
     public void mostrar(){
         NodoC e=getP();
         while (e!=null){
-            System.out.print(e.getNombre()+" "+e.getUtilidad()+" "+e.getObservaciones());
+            System.out.println("Nombre: "+e.getNombre()+" | Utilidad: "+e.getUtilidad()+" | Observaciones: "+e.getObservaciones());
             e=e.getSig();
         }
     }

@@ -20,7 +20,8 @@ public class Componente {
         this.Lc = Lc;
     }
     public void mostrar(){
-        System.out.println(Id_componente);
+        System.out.println("Id Componentes: "+Id_componente);
+        System.out.println("Lista de Componentes: ");
         Lc.mostrar();
     }
 

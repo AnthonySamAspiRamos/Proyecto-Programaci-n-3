@@ -10,7 +10,7 @@ package proyectoprogra3;
  */
 public class MultipilaMS {
     private int np;
-    private PilaMS P[]=new PilaMS[100];
+    private PilaMS P[]=new PilaMS[50];
 
     public MultipilaMS(){
         for(int i=1;i<=49;i++)

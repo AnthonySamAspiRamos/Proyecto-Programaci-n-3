@@ -6,6 +6,7 @@ public class ProyectoProgra3 {
     */
 
     public static void main(String[] args) {
+        /*
         LSimplePI a=new LSimplePI();
         a.adicionar(1, "Mañana", new Personal(1, "nom1", "pat1", "mat1", 15, "F", 77777, 1));
         a.adicionar(2, "Mañana", new Personal(1, "nom1", "pat1", "mat1", 15, "F", 77777, 1));
@@ -21,6 +22,7 @@ public class ProyectoProgra3 {
         A.adicionar(2, 5, 4, a1);
         
         A.mostrar();
+*/
         
     }
     
