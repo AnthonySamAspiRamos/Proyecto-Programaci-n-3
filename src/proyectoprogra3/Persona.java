@@ -11,5 +11,8 @@ public class Persona {
         edad=ed;
         sexo=sx;
     }
+    public void mostrar(){
+        
+    }
     
 }
