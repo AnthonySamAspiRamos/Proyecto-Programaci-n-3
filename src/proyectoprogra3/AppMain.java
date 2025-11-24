@@ -1,11 +1,23 @@
 package proyectoprogra3;
 
 import java.util.Scanner;
+/**
+ * INTEGRANTES:
+ * - Univ. ASPI RAMOS ANTHONY SAM
+ * - Univ. CHOQUE ALIAGA RILBERTH ALBERTO
+ * - Univ. CORDOVA AVENDAÑO YOSHUA AARON
+ * 
+ * TEMA:
+ * - FERIAS DE SALUD UMSA
+ */
 
 public class AppMain {
+    /*
+    * PROGRAMA MAIN AQUI SE APLICARA YA LO PROBADO
+    */
     public static void main(String[] args){
         Scanner lec=new Scanner(System.in);
-        
+        int opcion=0;
         //AQUI SE INSTANCIARA EL PROGRAMA MAIN
         /*
         * LOGISTICA DE MEDICAMENTOS
@@ -54,9 +66,16 @@ public class AppMain {
         Comp1.adiFinal("Tensiometro", "Medir Presion", "de muñeca");
         Comp1.adiFinal("Tensiometro", "Medir Presion", "de Brazo");
         Comp1.adiFinal("estadiómetro", "Medir altura", "Ninguna");
+        
+        LSimpleC Comp2=new LSimpleC();
+        Comp2.adiFinal("Proyector", "Presentacion", "negro, 3 horas de uso");
+        Comp2.adiFinal("Patalla de proyeccion", "Presentacion", "con tripode");
+        Comp2.adiFinal("Pancarta", "punblicidad", "Tamaño 1x2");
+        
         //Cola de Componentes Suministrados
         CSimpleC Comp=new CSimpleC();
         Comp.adicionar(new Componente(1, Comp1));
+        Comp.adicionar(new Componente(2, Comp2));
         //AUN NO ESTAN LOS STANDS Y NOS E SABE CUANTOS NROS DE PUESTOS ESTARAN ASI QUE POR AHORA ESTO ESTA DE PRUEBA   
         
         
@@ -132,13 +151,25 @@ public class AppMain {
         //Datos del stand de informacion: 
         // NroPuesto, IdFeria, Id_Componentes, ListaSimple de Personal de informacion;
         si1.adicionar(1, 1, 1, pi1);
+        //Datos de Stand de Atencion:
         // NroPuesto, IdFeria, Id_Medicamentos Disponibles,Pila de Instrumentos, Lista Simple de Personal de informacion;
         sa1.adicionar(2, 1, 1, ind1, pm1);
+        //Datos de Stand Recreativo:
         // NroPuesto, IdFeria, Id_Componentes,ListaDoble de Juegos, LSimplePI Personal de Promotores;
-        sr1.adicionar(3, 1, 1, ju1, pr1);
+        sr1.adicionar(3, 1, 2, ju1, pr1);
         
         
+        /*
+        *VISITANTES DE LA FERIA
+        */
+        //Cola Simple de Visitantes
+        CSimpleV Visitantes=new CSimpleV();
+        //Este iniciara vacio, ya que los trabajadores o los que manejen este sistema llenaran los datos
         
+        //Lista Doble de Fichas dadas en Infomracion
+        LDobleFI Fichas_Info=new LDobleFI();
+        //Lista Doble Circular de Diagnosticos dadas en Atencion
+        LDobleCirDi Diagnosticos=new LDobleCirDi();
         
         /*
         * FERIA INSTANCIADA
@@ -149,8 +180,75 @@ public class AppMain {
         Ferias.setNc(1);
         Ferias.adicionar(1, new Feria(1, "Feria de Salud 1", "24/01/2025", "2/02/2025", "10:00", "16:00", "Monobloc", si1, sa1, sr1));
         //Ferias.adicionar(1, new Feria(2, "Feria de Salud 2", "01/02/2025", "15/02/2025", "12:00", "18:00", "El Alto", null, null, null));
-        Ferias.mostrar(1);
-        
+        //Ferias.mostrar(1);
+        System.out.println("╔═══════════════════════════════════════════════════════════╗");
+        System.out.println("║                   Feria de Salud UMSA                     ║");
+        System.out.println("║                Proyecto Programacion III                  ║");
+        System.out.println("║                                                           ║");
+        System.out.println("╚═══════════════════════════════════════════════════════════╝");        
+        do {   
+            System.out.println("===========================================");
+            System.out.println("/Inicio");
+            System.out.println("Elige una opcion: ");
+            System.out.println("1. Ver Ferias existentes: ");
+            System.out.println("2. Adicinar una carga de Medicamentos: ");
+            System.out.println("3. Registrar un visitante a una feria: ");
+            System.out.println("4. Mostrar componentes usados en una Feria: ");
+            System.out.println("5. Mostrar Visitantes de las Ferias: ");
+            System.out.println("6. Mostrar los Visitantes de las Ferias con sus Fichas: ");
+            System.out.println("7. Mostrar los Tipos de Madicamentos disponibles y cuales son: ");
+            System.out.println("8. salir: ");
+             System.out.print("Int. opcion =>");opcion=lec.nextInt();
+             System.out.print(" ");
+             switch (opcion) {
+                case 1:
+                    Ferias.mostrar();
+                    break;
+                case 2:
+                    AgregarMedicamentos(MedDispo, MedSumi);//SUMINISTRA MEDICAMENTOS A NUESTRA PILA
+                    break;
+                case 3:
+                    //Datos ingresando: Cola de Visitantes, IdFeria, Nro puesto Id_personal, Lista Doble de FichasInfo, Lista DobleCircular IDagnosticos
+                    System.out.println("Registrando datos de atencion: ");
+                    System.out.print("Int. Id Feria [1]: ");int dat1=lec.nextInt();
+                    System.out.print("Int. Nro de Puesto [1-3]: ");int dat2=lec.nextInt();
+                    System.out.print("Int. Id Personal que lo atendio[1-4]: ");int dat3=lec.nextInt();
+                    //NOTA Agregar comproovadores que no pasen esos rangos
+                    RegisVisStand(Visitantes,dat1,dat2,dat3,Fichas_Info,Diagnosticos);
+                    break;
+                case 4:
+                    //MEJORAR ESTA PARTE
+                    System.out.println("Buscar por: ");
+                    System.out.println("1. nombre de la feria.");
+                    System.out.println("2. Codigo de la feria.");
+                    System.out.print("Int. opcion => ");int opc1=lec.nextInt();
+                    if(opc1>2){
+                        System.out.println("Opcion no valida, volviendo atras");
+                    }else{
+                        if(opc1==1){
+                            System.out.print("Int. nombre de la feria => ");String dats=lec.next();
+                            mostrarStandsComp(Ferias, dats, Comp);
+                        }else{
+                            System.out.print("Int. Codigo de la Feria => ");int dati=lec.nextInt();
+                            mostrarStandsComp(Ferias, dati, Comp);
+                        }
+                    }                    
+                    break;
+                case 5:
+                    Visitantes.mostrar();
+                    break;
+                 case 6:
+                    mostrarVisWFWD(Visitantes, Fichas_Info,Diagnosticos);
+                    break;
+                 case 7:
+                    mostrarMedicamentosDispoAndSumi(MedDispo, MedSumi);
+                    break;
+                default:
+                    System.out.println("Sistema Terminado: Gracias por Usarlo :D");
+            }
+            System.out.println("===========================================");
+            System.out.println(" ");
+        } while (opcion<8);
         
         
         
@@ -162,10 +260,22 @@ public class AppMain {
         /*
         * EJEMPLOS DE PROBLEMAS DE EJERCICIOS
         */
-        //AgregarMedicamentos(MedDispo, MedSumi);
+        //AgregarMedicamentos(MedDispo, MedSumi);SUMINISTRA MEDICAMENTOS A NUESTRA PILA 
         //MedDispo.mostrar();
         //System.out.println(" ");
         //MedSumi.mostrar();
+        
+        
+        //Mostrar todos los stands con sus componentes de una feria X
+        //Datos ingresando: MultiCola de Ferias, Nombre de la Feria, Lista de Componentes
+        //mostrarStandsComp(Ferias, "Feria de Salud 1", Comp);      
+        
+        
+        //Registrar Visitante:
+        //Datos ingresando: Cola de Visitantes, IdFeria, Nro puesto Id_personal, Lista Doble de FichasInfo, Lista DobleCircular IDagnosticos
+        //RegisVisStand(Visitantes,1,1,2,Fichas_Info,Diagnosticos);
+        //RegisVisStand(Visitantes,1,1,1,Fichas_Info,Diagnosticos);
+        //RegisVisStand(Visitantes,1,2,1,Fichas_Info,Diagnosticos);
     }    
     // EJERCICIOS
     /*
@@ -244,5 +354,233 @@ public class AppMain {
         return v;
     }
     //Fin de la suministracion
+    /*
+    * ADICIONAR UN PERSONAL A UN STAND
+    */
+    public static void AdiPersonal(MultiColaF a){
+        
+    }
+    /*
+    * MOSTRAR LOS TIPOS Y Nro DE PUESTO DE STANDS CON SUS COMPONENTES DE LA FERIA X
+    */
+    //Buscar por un nombre C
+    public static void mostrarStandsComp(MultiColaF a, String x, CSimpleC b){
+        for(int i=1; i<=a.getNc();i++){
+            CCircF aux=new CCircF();
+            while(!a.esvacia(i)){
+                Feria w=a.eliminar(i);
+                if(w.getNombre().equals(x)){
+                    System.out.println("--- Stands de Informacion ---");
+                    mostrarStandN(w.getLsi(), b);
+                    System.out.println("--- Stands Recreativos ---");
+                    mostrarStandN(w.getLsr(), b);
+                }
+                aux.adicionar(w);
+            }
+            a.vaciar(i, aux);
+            
+        }
+    }
+    // Buscar por un condigoX
+    public static void mostrarStandsComp(MultiColaF a, int x, CSimpleC b){
+        for(int i=1; i<=a.getNc();i++){
+            CCircF aux=new CCircF();
+            while(!a.esvacia(i)){
+                Feria w=a.eliminar(i);
+                if(w.getIdFeria()==x){
+                    System.out.println("--- Stands de Informacion ---");
+                    mostrarStandN(w.getLsi(), b);
+                    System.out.println("--- Stands Recreativos ---");
+                    mostrarStandN(w.getLsr(), b);
+                }
+                aux.adicionar(w);
+            }
+            a.vaciar(i, aux);
+            
+        }
+    }    
+    public static void mostrarStandN(LDobleSI r, CSimpleC b){
+        NodoSI w=r.getP();
+        while(w!=null){
+            //entra en todas los stands
+            System.out.println("Nro Puesto: "+w.getNroPuesto());
+            //preparando para recorrer a la cola de componentes
+            CSimpleC aux=new CSimpleC();
+            //entrando a la cola de componentes
+            while(!b.esvacia()){
+                Componente c=b.eliminar();
+                if(c.getId_componente() == w.getId_Componentes()){
+                    c.getLc().mostrar();
+                }                
+                aux.adicionar(c);
+            }
+            b.vaciar(aux);
+            w=w.getSig();
+        }
+    }
+    public static void mostrarStandN(LDobleSR r, CSimpleC b){
+        NodoSR w=r.getP();
+        while(w!=null){
+            //entra en todas los stands
+            System.out.println("Nro Puesto: "+w.getNroPuesto());
+            //preparando para recorrer a la cola de componentes
+            CSimpleC aux=new CSimpleC();
+            //entrando a la cola de componentes
+            while(!b.esvacia()){
+                Componente c=b.eliminar();
+                if(c.getId_componente() == w.getId_Componentes()){
+                    c.getLc().mostrar();
+                }                
+                aux.adicionar(c);
+            }
+            b.vaciar(aux);
+            w=w.getSig();
+        }
+    }
+    /*
+    * REGISTRANDO UN NUEVO VISITANTE
+    */
+    //Datos ingresando: Cola de Visitantes, IdFeria, Nro puesto Id_personal, Lista Doble de FichasInfo, Lista DobleCircular IDagnosticos
+    private static void RegisVisStand(CSimpleV a, int idf, int np, int idp, LDobleFI b, LDobleCirDi c) {
+        Scanner lec=new Scanner(System.in);
+        System.out.println("SE ESTA REGISTRANDO UN VISITANTES");
+        int ci;
+        int ind=0;
+        int Id_colocar=1;
+        System.out.print("Int. Ci => ");ci=lec.nextInt();
+        //Comprovador de si existe ya un ci igual en la cola
+        boolean veri=false;
+        CSimpleV aux=new CSimpleV();
+        while(!a.esVacia()){
+            Id_colocar++;
+            Visitante w=a.eliminar();
+            if(w.getCi()==ci){
+                veri=true;
+                ind=w.getId_Visitante();
+            }
+            aux.adicionar(w);
+        }
+        a.vaciar(aux);
+        if(veri){
+            System.out.println("Ya existe este Visitante, Solo se le agregara una ficha: ");
+            AgregarParticipacion(ind, b, c, idf, np, idp);
+        }else{
+            System.out.println("No existe este Visitante, Registrando sus datos:");
+            String nom;
+            String mat;
+            String pat;
+            int ed;
+            String sx;
+            int cont;
+            System.out.print("Int. nombre => ");nom=lec.next();
+            System.out.print("Int. Ap. Pat => ");pat=lec.next();
+            System.out.print("Int. Ap. Mat => ");mat=lec.next();
+            System.out.print("Int. edad => ");ed=lec.nextInt();
+            System.out.print("Int. Sexo[M/F] => ");sx=lec.next();
+            System.out.print("Int. contacto (Nro de telefono)=> ");cont=lec.nextInt();
+            //Ci, nombre, pat, mat, edad, sx, cont, Id Visitante, Id Fichas INfo, Id_Diagnosticos
+            a.adicionar(new Visitante(ci, nom, pat, mat, ed, sx, cont, Id_colocar, Id_colocar, Id_colocar));
+            b.adicionar(Id_colocar, new PilaFI());
+            AgregarParticipacion(Id_colocar, b, c, idf, np, idp);
+        }
+        /*
+        
+        */
+       
+    }
+
+    private static void AgregarParticipacion(int ind, LDobleFI b, LDobleCirDi c, int idf, int np, int idp) {
+        Scanner lec=new Scanner(System.in);
+        int opc;
+        System.out.println("REGISTRNADO UNA FICHA");
+        System.out.println("Elija una opcion");
+        System.out.println("1.- Ficha de Informacion.");
+        System.out.println("2.- Ficha de Atencion.");
+        System.out.println("3.- Salir.");
+        System.out.print("Int. Opcion => ");opc=lec.nextInt();
+        if(opc >= 3){
+            System.out.println("Saliendo de registro de ficha.");
+            return;
+        }else{
+            if(opc==1){
+                NodoFI w=b.getP();
+                while(w!=null){
+                    if(w.getId_Informaciones()==ind){
+                        Observaciones o=new Observaciones();
+                        Habitos h=new Habitos();
+                        o.leer();
+                        h.leer();                        
+                        w.getIn().adicionar(new FichaInfo(ind, idf, o, h, idf));
+                    }
+                    w=w.getSig();
+                }
+            }else{
+                Diagnostico d=new Diagnostico();
+                d.leer();
+                //id visitante, id medico, diagnostico, id feria
+                c.adiprincipio(ind, idp, d, idf);
+            }
+        }
+        
+        
+        
+    }
+    /*
+    * MOSTRANDO TODOS LOS VISITANTES CON SUS FICHAS MEDICAS
+    */
+    private static void mostrarVisWFWD(CSimpleV a, LDobleFI b, LDobleCirDi c) {
+        CSimpleV aux=new CSimpleV();
+        while(!a.esVacia()){
+            Visitante e=a.eliminar();
+            System.out.println("Nombre: "+e.getNombre()+" | Id Visitante: "+e.getId_Visitante());
+            System.out.println("Fichas de Informacion:");
+            if(b.getP()==null){
+                System.out.println("No tienes Fichas de Informacion");
+            }else{
+                NodoFI r=b.getP();
+                while(r!=null){
+                    if(e.getId_Visitante()==r.getId_Informaciones()){
+                        r.getIn().mostrar();
+                    }
+                    r=r.getSig();
+                }
+            }
+            System.out.println("Diagnosticos dadas en Stands de Atencion:");
+            if(c.getP()==null){
+                System.out.println("No tienes Diagnosticos");
+            }else{
+                NodoDi w=c.getP();
+                while(w.getSig()!=null){
+                 if(e.getId_Visitante()==w.getId_Visitante()){
+                      w.getD().mostrar();
+                   }
+                    w=w.getSig();
+                 }
+                 if(e.getId_Visitante()==w.getId_Visitante()){
+                    w.getD().mostrar();
+                 }
+            }         
+            
+            aux.adicionar(e);
+        }
+        a.vaciar(aux);
+    }
+    /*
+    * MOSTRAR LOS TIPOS DE MEDICAMENTOS DISPONIBLES Y QUE MEDICAMENTOS HAY
+    */
+    private static void mostrarMedicamentosDispoAndSumi(CSimpleMD a, MultipilaMS b) {
+        int c=0;
+        CSimpleMD aux=new CSimpleMD();
+        while(!a.esvacia()){
+            MedicamentosDispo e=a.eliminar();
+            c++;
+            System.out.println("Tipo: "+e.getTipo()+" | Disponibles: "+e.getStock());
+            System.out.println("Medicamentos Suministrados: ");
+            b.mostrar(c);
+            System.out.println(" ");
+            aux.adicionar(e);
+        }
+        a.vaciar(aux);
+    }
     
 }

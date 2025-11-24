@@ -4,13 +4,17 @@
  */
 package proyectoprogra3;
 
+import java.util.Scanner;
+
 /**
  *
  * @author YOSHUA
  */
 public class Diagnostico {
     private String antecedentes,motivos,hallazgo,desiciones,tratamiento,evaluacion;
-
+    private Scanner lec=new Scanner(System.in);
+    
+    public Diagnostico(){}
     public Diagnostico(String antecedentes, String motivos, String hallazgo, String desiciones, String tratamiento, String evaluacion) {
         this.antecedentes = antecedentes;
         this.motivos = motivos;
@@ -21,6 +25,16 @@ public class Diagnostico {
     }
     public void mostrar(){
         System.out.println(antecedentes+" "+motivos+" "+hallazgo+" "+desiciones+" "+tratamiento+" "+evaluacion);
+    }
+    
+    public void leer(){
+        System.out.println("Agregando datos de Diagnostico");
+        System.out.print("Int. Antecedentes => ");antecedentes=lec.next();
+        System.out.print("Int. Motivo => ");motivos=lec.next();
+        System.out.print("Int. Hallazgo => ");hallazgo=lec.next();
+        System.out.print("Int. Desicion => ");desiciones=lec.next();
+        System.out.print("Int. Tratamiento => ");tratamiento=lec.next();
+        System.out.print("Int. Evaluacion => ");evaluacion=lec.next();
     }
 
     public String getAntecedentes() {

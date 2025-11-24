@@ -1,11 +1,18 @@
 package proyectoprogra3;
 
+import java.util.Scanner;
+
 public class Observaciones {
 	private int peso;
 	private int altura;
 	private String presArterial;
 	private String glucosa;
 	private String colesterol;
+        private Scanner lec=new Scanner(System.in);
+        
+        public Observaciones(){
+            
+        }
 	
 	public Observaciones(int peso, int altura, String presArterial, String glucosa, String colesterol){
 		this.peso = peso;
@@ -21,6 +28,15 @@ public class Observaciones {
 		System.out.println("Glucosa: " + glucosa);
 		System.out.println("Colesterol: " + colesterol);
 	}
+        public void leer(){
+            System.out.println("Agregando Datos de Observaciones.");
+            System.out.print("Int. Peso =>");peso=lec.nextInt();
+            System.out.print("Int. Altura =>");altura=lec.nextInt();
+            System.out.print("Int. Presion Arterial =>");presArterial=lec.next();
+            System.out.print("Int. Nivel de glucosa =>");glucosa=lec.next();
+            System.out.print("Int. Nivel de colesterol =>");colesterol=lec.next();
+            System.out.println("Datos Agregados.");
+        }
 	public int getPeso() {
 		return peso;
 	}
