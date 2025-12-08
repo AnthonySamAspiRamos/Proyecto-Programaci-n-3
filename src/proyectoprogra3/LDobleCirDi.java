@@ -22,12 +22,18 @@ public class LDobleCirDi {
     public void setP(NodoDi p) {
         this.p = p;
     }
-    public void adiprincipio(int idv,int idm,Diagnostico d,int ifd){
+    public void adiprincipio(int idv,int idm,String ante,String mot,String hall,String desc,String trat,String eval,int fer,String fch){
         NodoDi nue=new NodoDi();
         nue.setId_Visitante(idv);
         nue.setId_Medico(idm);
-        nue.setD(d);
-        nue.setId_Feria(ifd);
+        nue.setAntesedentes(ante);
+        nue.setMotivo(mot);
+        nue.setHallazgo(hall);
+        nue.setDesiciones(desc);
+        nue.setTratamiento(trat);
+        nue.setEvaluacion(eval);
+        nue.setId_Feria(fer);
+        nue.setFecha(fch);
         NodoDi z=getP();
         if(z==null)
             setP(nue);
@@ -41,8 +47,7 @@ public class LDobleCirDi {
     public void mostrar(){
         NodoDi e=getP();
         while (e!=null){
-            System.out.println(e.getId_Visitante()+" "+e.getId_Medico()+" "+e.getId_Feria());
-            e.getD().mostrar();
+            System.out.println(e.getId_Visitante()+" "+e.getId_Medico()+" "+e.getAntesedentes()+" "+e.getMotivo()+" "+e.getHallazgo()+" "+e.getDesiciones()+" "+e.getTratamiento()+" "+e.getEvaluacion()+" "+e.getId_Feria()+" "+e.getFecha());
             e=e.getSig();
         }
     }

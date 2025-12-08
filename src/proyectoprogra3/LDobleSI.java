@@ -15,12 +15,11 @@ public class LDobleSI {
     public void setP(NodoSI p) {
         this.p = p;
     }
-    public void adicionar(int np, int idf, int idc, LSimplePI pi) {
+    public void adicionar(int np, int idf, int idc) {
 		NodoSI nue=new NodoSI();
 		nue.setNroPuesto(np);
                 nue.setIdFeria(idf);
                 nue.setId_Componentes(idc);
-                nue.setPi(pi);
 		if(getP()==null) {
 			setP(nue);
 		}
@@ -38,9 +37,7 @@ public class LDobleSI {
 		NodoSI w=getP();
 		while(w!=null) {
 			System.out.println("NroPuesto"+w.getNroPuesto()+" | Id Feria: "+w.getIdFeria()+" | Id Componentes: "+w.getId_Componentes());
-                        System.out.println("Datos de Informadores: ");
-                        w.getPi().mostrar();
-			w=w.getSig();
+                        w=w.getSig();
 		}
     }
 }

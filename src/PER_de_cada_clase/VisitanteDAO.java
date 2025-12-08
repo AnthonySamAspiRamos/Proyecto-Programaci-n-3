@@ -11,6 +11,7 @@ package PER_de_cada_clase;
 
 import java.io.*;
 import java.util.*;
+import java.util.ArrayList;
 import proyectoprogra3.Visitante;
 public class VisitanteDAO {
     private static String ARCHIVO = "visitantes.txt";

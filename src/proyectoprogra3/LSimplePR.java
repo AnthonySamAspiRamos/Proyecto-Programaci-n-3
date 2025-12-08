@@ -3,7 +3,7 @@ package proyectoprogra3;
 public class LSimplePR {
     private NodoPR p;
     
-    LSimplePR(){
+    public LSimplePR(){
         p=null;
     }
 
@@ -17,11 +17,12 @@ public class LSimplePR {
     
     
     
-    public void adicionar(int i, String h, Personal pe) {
+    public void adicionar(int i, String h, int nrop,int idf) {
 		NodoPR nue=new NodoPR();
-		nue.setId_Promotor(i);
+		nue.setId_recreacionista(i);
                 nue.setHorario(h);
-                nue.setP(pe);
+                nue.setNroPuesto(nrop);
+                nue.setId_feria(idf);
 		if(getP()==null) {
 			setP(nue);
 		}
@@ -37,9 +38,8 @@ public class LSimplePR {
     public void mostrar() {
 		NodoPR w=getP();
 		while(w!=null) {
-			System.out.println("Id Promotor: "+w.getId_Promotor()+" | Horario: "+w.getHorario());
-                        System.out.println("Datos de Promotores: ");
-                        w.getP().mostrar();
+			System.out.println("Id Promotor: "+w.getId_recreacionista()+" | Horario: "+w.getHorario()+" | NroPuesto: "+w.getNroPuesto()+" | idFeria: "+w.getId_feria());
+                        
 			w=w.getSig();
 		}
     }

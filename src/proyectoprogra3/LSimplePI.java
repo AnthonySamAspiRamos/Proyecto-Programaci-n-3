@@ -15,11 +15,12 @@ public class LSimplePI {
         this.p = p;
     }
     
-    public void adicionar(int i, String h, Personal pe) {
+    public void adicionar(int i, String h, int nrop,int idf ) {
 		NodoPI nue=new NodoPI();
 		nue.setId_Informador(i);
                 nue.setHorario(h);
-                nue.setP(pe);
+                nue.setNroPuesto(nrop);
+                nue.setId_feria(idf);
 		if(getP()==null) {
 			setP(nue);
 		}
@@ -35,9 +36,9 @@ public class LSimplePI {
     public void mostrar() {
 		NodoPI w=getP();
 		while(w!=null) {
-			System.out.println("Id Informador: "+w.getId_Informador()+" | Horario: "+w.getHorario());
-                        System.out.println("Datos del Personal: ");
-                        w.getP().mostrar();
+			System.out.println("Id Informador: "+w.getId_Informador()+" | Horario: "+w.getHorario()+" | NroPuesto: "+w.getNroPuesto()+" | idFeria: "+w.getId_feria());
+                        
+                        
 			w=w.getSig();
 		}
     }

@@ -10,8 +10,9 @@ package proyectoprogra3;
  */
 public class NodoDi {
     private int Id_Visitante, Id_Medico;
-    private Diagnostico d;
+    private String antesedentes,motivo,hallazgo,desiciones,tratamiento,evaluacion;
     private int Id_Feria;
+    private String fecha;
     private NodoDi sig,ant;
 
     public NodoDi() {
@@ -34,14 +35,63 @@ public class NodoDi {
         this.Id_Medico = Id_Medico;
     }
 
-    public Diagnostico getD() {
-        return d;
+    public String getAntesedentes() {
+        return antesedentes;
     }
 
-    public void setD(Diagnostico d) {
-        this.d = d;
+    public void setAntesedentes(String antesedentes) {
+        this.antesedentes = antesedentes;
     }
 
+    public String getMotivo() {
+        return motivo;
+    }
+
+    public void setMotivo(String motivo) {
+        this.motivo = motivo;
+    }
+
+    public String getHallazgo() {
+        return hallazgo;
+    }
+
+    public void setHallazgo(String hallazgo) {
+        this.hallazgo = hallazgo;
+    }
+
+    public String getDesiciones() {
+        return desiciones;
+    }
+
+    public void setDesiciones(String desiciones) {
+        this.desiciones = desiciones;
+    }
+
+    public String getTratamiento() {
+        return tratamiento;
+    }
+
+    public void setTratamiento(String tratamiento) {
+        this.tratamiento = tratamiento;
+    }
+
+    public String getEvaluacion() {
+        return evaluacion;
+    }
+
+    public void setEvaluacion(String evaluacion) {
+        this.evaluacion = evaluacion;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    
     public int getId_Feria() {
         return Id_Feria;
     }
@@ -66,5 +116,27 @@ public class NodoDi {
         this.ant = ant;
     }
     
+    
+    @Override
+    public String toString() {
+        // Guardar separado por comas
+        return Id_Visitante + ";" + Id_Medico + ";" + antesedentes + ";" + motivo+ ";" +hallazgo+ ";" +desiciones+ ";" +tratamiento+ ";" +evaluacion+ ";" +Id_Feria+ ";" +fecha;
+    }
+
+    public static NodoDi fromString(String linea) {
+        String[] datos = linea.split(";");
+        NodoDi n = new NodoDi();
+        n.setId_Visitante(Integer.parseInt(datos[0]));
+        n.setId_Medico(Integer.parseInt(datos[1]));
+        n.setAntesedentes(datos[2]);
+        n.setMotivo(datos[3]);
+        n.setHallazgo(datos[4]);
+        n.setDesiciones(datos[5]);
+        n.setTratamiento(datos[6]);
+        n.setEvaluacion(datos[7]);
+        n.setId_Feria(Integer.parseInt(datos[8]));
+        n.setFecha(datos[9]);
+        return n;
+    }
 
 }

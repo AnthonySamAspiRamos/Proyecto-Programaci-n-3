@@ -1,9 +1,8 @@
 package proyectoprogra3;
 
 public class NodoSA {
-    private int NroPuesto, IdFeria, Id_MedicamentosDispo;
-    private LSimplePA lpa;
-    private PilaInsD pid;
+    private int NroPuesto, IdFeria, idInstrumentosDoc;
+    
     private NodoSA  sig, ant;
     
     public NodoSA(){
@@ -26,29 +25,15 @@ public class NodoSA {
         this.IdFeria = IdFeria;
     }    
 
-    public int getId_MedicamentosDispo() {
-        return Id_MedicamentosDispo;
+    public int getIdInstrumentosDoc() {
+        return idInstrumentosDoc;
     }
 
-    public void setId_MedicamentosDispo(int Id_MedicamentosDispo) {
-        this.Id_MedicamentosDispo = Id_MedicamentosDispo;
+    public void setIdInstrumentosDoc(int idInstrumentosDoc) {
+        this.idInstrumentosDoc = idInstrumentosDoc;
     }
 
-    public LSimplePA getLpa() {
-        return lpa;
-    }
 
-    public void setLpa(LSimplePA lpa) {
-        this.lpa = lpa;
-    }
-
-    public PilaInsD getPid() {
-        return pid;
-    }
-
-    public void setPid(PilaInsD pid) {
-        this.pid = pid;
-    }
 
     public NodoSA getSig() {
         return sig;
@@ -65,5 +50,18 @@ public class NodoSA {
     public void setAnt(NodoSA ant) {
         this.ant = ant;
     }
-    
+    @Override
+    public String toString() {
+        // Guardar separado por comas
+        return NroPuesto + ";" +IdFeria + ";" + getIdInstrumentosDoc();
+    }
+
+    public static NodoSA fromString(String linea) {
+        String[] datos = linea.split(";");
+        NodoSA n = new NodoSA();
+        n.setNroPuesto(Integer.parseInt(datos[0]));
+        n.setIdFeria(Integer.parseInt(datos[1]));
+        n.setIdInstrumentosDoc(Integer.parseInt(datos[2]));
+        return n;
+    }
 }

@@ -14,11 +14,12 @@ public class LSimplePA {
     public void setP(NodoPA p) {
         this.p = p;
     }
-    public void adicionar(int i, String h, Personal pe) {
+    public void adicionar(int i, String h,  int nrop,int idf ) {
 		NodoPA nue=new NodoPA();
 		nue.setId_Medico(i);
                 nue.setHorario(h);
-                nue.setP(pe);
+                nue.setNroPuesto(nrop);
+                nue.setId_feria(idf);
 		if(getP()==null) {
 			setP(nue);
 		}
@@ -34,9 +35,8 @@ public class LSimplePA {
     public void mostrar() {
 		NodoPA w=getP();
 		while(w!=null) {
-			System.out.println("Id Medico: "+w.getId_Medico()+" | Horario: "+w.getHorario());
-                        System.out.println("Datos del Personal: ");
-                        w.getP().mostrar();
+			System.out.println("Id Medico: "+w.getId_Medico()+" | Horario: "+w.getHorario()+" | NroPuesto: "+w.getNroPuesto()+" | idFeria: "+w.getId_feria());
+                        
 			w=w.getSig();
 		}
     }

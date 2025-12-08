@@ -48,6 +48,44 @@ public class Registo_Visitantes extends javax.swing.JFrame {
     private List<NodoPR> listaPR = new ArrayList<>();
     private Personal_RecreacionDAO daoPR=new Personal_RecreacionDAO();
     private LSimplePR LsPR=new LSimplePR();
+    
+    //componentes
+    private DefaultTableModel modeloTabla6;
+    private List<NodoC> listaC = new ArrayList<>();
+    private ComponentesDAO daoC=new ComponentesDAO();
+    private LSimpleC LsC=new LSimpleC();
+    
+    
+    //STAND DE INFORMACION
+    private DefaultTableModel modeloTabla7;
+    private List<NodoSI> listaSI = new ArrayList<>();
+    private Stand_InformacionDAO daoSI=new Stand_InformacionDAO();
+    private LDobleSI LdSI=new LDobleSI();
+    
+    //STAND ATENCION
+    private DefaultTableModel modeloTabla8;
+    private List<NodoSA> listaSA = new ArrayList<>();
+    private Stand_AtencionDAO daoSA=new Stand_AtencionDAO();
+    private LDobleSA LdSA=new LDobleSA();
+    
+    //STAND RECREACION
+    private DefaultTableModel modeloTabla9;
+    private List<NodoSR> listaSR = new ArrayList<>();
+    private Stand_RecreacionDAO daoSR=new Stand_RecreacionDAO();
+    private LDobleSR LdSR=new LDobleSR();
+    
+    //DIAGNOSTICO
+    private DefaultTableModel modeloTabla10;
+    private List<NodoDi> listaDi = new ArrayList<>();
+    private DiagnosticoDAO daoDi=new DiagnosticoDAO();
+    private LDobleCirDi LdDi=new LDobleCirDi();
+    
+    //instrumentosDOc
+    private DefaultTableModel modeloTabla11;
+    private List<InstrumentosDoc> listaPIDOC=new ArrayList<>();
+    private InstrumentosDAO daoPIDOC=new InstrumentosDAO();
+    private PilaInsD PInsD=new PilaInsD();
+    
     /**
      * Creates new form Registo_Visitantes
      */
@@ -139,7 +177,106 @@ public class Registo_Visitantes extends javax.swing.JFrame {
             TF_NRO_PUESTO_PR.setText(String.valueOf(n.getNroPuesto()));
             TF_ID_FERIA_PR.setText(String.valueOf(n.getId_feria()));
         }
-    });
+        });
+        
+        //componentes
+        modeloTabla6 = (DefaultTableModel) TABLA_COMPONENTES.getModel();
+        cargarComponente();
+
+        TABLA_COMPONENTES.getSelectionModel().addListSelectionListener(e -> {
+        int fila = TABLA_COMPONENTES.getSelectedRow();
+        if(fila != -1){
+            NodoC n = listaC.get(fila);
+            TF_ID_COMP.setText(String.valueOf(n.getId_componente()));
+            TF_ID_GRUPOCOMP.setText(String.valueOf(n.getId_GrupoComponente()));
+            TF_NOMBRE_COMP.setText(n.getNombre());
+            TF_UTILIDAD_COMP.setText(n.getUtilidad());
+            TF_OBSERVACIONES_COMP.setText(n.getUtilidad());
+        }
+        });
+        
+        //STAND INFORMACION
+        modeloTabla7 = (DefaultTableModel) TABLA_STAND_INFORMACION.getModel();
+        cargarSI();
+
+        TABLA_STAND_INFORMACION.getSelectionModel().addListSelectionListener(e -> {
+        int fila = TABLA_STAND_INFORMACION.getSelectedRow();
+        if(fila != -1){
+            NodoSI n = listaSI.get(fila);
+            TF_NRO_PUESTO_SI.setText(String.valueOf(n.getNroPuesto()));
+            TF_ID_FERIA_SI.setText(String.valueOf(n.getIdFeria()));
+            TF_ID_COMP_SI.setText(String.valueOf(n.getId_Componentes()));
+        }
+        });
+        
+        //STAND ATENCION
+        modeloTabla8 = (DefaultTableModel) TABLA_STAND_ATENCION.getModel();
+        cargarSA();
+
+        TABLA_STAND_ATENCION.getSelectionModel().addListSelectionListener(e -> {
+        int fila = TABLA_STAND_ATENCION.getSelectedRow();
+        if(fila != -1){
+            NodoSA n = listaSA.get(fila);
+            TF_NROPUESTO_SA.setText(String.valueOf(n.getNroPuesto()));
+            TF_ID_FERIA_SA.setText(String.valueOf(n.getIdFeria()));
+            TF_INSTRUMENTOS_SA.setText(String.valueOf(n.getIdInstrumentosDoc()));
+        }
+        });
+        
+        //STAND RECREACION
+        modeloTabla9 = (DefaultTableModel) TABLA_STAND_RECREACION.getModel();
+        cargarSR();
+
+        TABLA_STAND_RECREACION.getSelectionModel().addListSelectionListener(e -> {
+        int fila = TABLA_STAND_RECREACION.getSelectedRow();
+        if(fila != -1){
+            NodoSR n = listaSR.get(fila);
+            TF_NRO_PUESTO_SR.setText(String.valueOf(n.getNroPuesto()));
+            TF_ID_FERIA_SR.setText(String.valueOf(n.getIdFeria()));
+            TF_ID_COMP_SR.setText(String.valueOf(n.getId_Componentes()));
+        }
+        });
+        
+        //DIAGNOSTICO
+        modeloTabla10 = (DefaultTableModel) TABLA_DIAGNOSTICO.getModel();
+        cargarSR();
+
+        TABLA_DIAGNOSTICO.getSelectionModel().addListSelectionListener(e -> {
+        int fila = TABLA_DIAGNOSTICO.getSelectedRow();
+        if(fila != -1){
+            NodoDi n = listaDi.get(fila);
+            TF_ID_VISIT_DI.setText(String.valueOf(n.getId_Visitante()));
+            TF_ID_MEDICO_DI.setText(String.valueOf(n.getId_Medico()));
+            TF_ID_COMP_SR.setText(n.getAntesedentes());
+            TF_MOTIVOS_DI.setText(n.getAntesedentes());
+            TF_HALLAZGOS_DI.setText(n.getAntesedentes());
+            TF_DECISIONES_DI.setText(n.getAntesedentes());
+            TF_TRATAMIENTO_DI.setText(n.getAntesedentes());
+            TF_EVALUACION_DI.setText(n.getAntesedentes());
+            TF_ID_FERIA_DI.setText(String.valueOf(n.getId_Feria()));
+            TF_FECHA_DI.setText(n.getFecha());
+        }
+        });
+        
+        
+        //instrumento 
+        modeloTabla11 =(DefaultTableModel)TABLA_INSTRUMENTO.getModel();
+        cargarVisitantes();
+        
+        TABLA_INSTRUMENTO.getSelectionModel().addListSelectionListener(e -> {
+            int fila = TABLA_INSTRUMENTO.getSelectedRow();
+            if(fila !=-1){
+                InstrumentosDoc v=listaPIDOC.get(fila);
+                TF_ID_INST.setText(String.valueOf(v.getId_instrumento()));
+                TF_GRUPO_INSTRUMENTO.setText(String.valueOf(v.getGrupo_instrumentos()));
+                TF_NRO_PUESTO_INST.setText(String.valueOf(v.getNropuesto()));
+                TF_NOMBRE_INST.setText(v.getTipo());
+                TF_TIPO_INST.setText(String.valueOf(v.getTipo()));
+                TF_OBS_INST.setText(v.getObservacion());
+               
+            }
+        });
+        
     }
     
     public void cargarVisitantes(){
@@ -210,6 +347,86 @@ public class Registo_Visitantes extends javax.swing.JFrame {
         LsPR.adicionar(n.getId_recreacionista(), n.getHorario(), n.getNroPuesto(), n.getId_feria());
         }
     }
+    
+    //componentes
+    public void cargarComponente() {
+    listaC = daoC.cargaComponente();
+    modeloTabla6.setRowCount(0);
+    LsC = new LSimpleC();
+    for (NodoC n : listaC) {
+        modeloTabla6.addRow(new Object[]{n.getId_componente(), n.getId_GrupoComponente(), n.getNombre(), n.getUtilidad(),n.getObservaciones()});
+        LsC.adiFinal(n.getId_componente(), n.getId_GrupoComponente(), n.getNombre(), n.getUtilidad(),n.getObservaciones());
+        }
+    }
+    
+    //STAND INFORMACION
+    public void cargarSI() {
+    listaSI = daoSI.cargaSI();
+    modeloTabla7.setRowCount(0);
+    LdSI = new LDobleSI();
+    for (NodoSI n : listaSI) {
+        modeloTabla7.addRow(new Object[]{n.getNroPuesto(), n.getIdFeria(), n.getId_Componentes()});
+        LdSI.adicionar(n.getNroPuesto(), n.getIdFeria(), n.getId_Componentes());
+        }
+    }
+    
+    //STAND ATENCION
+    public void cargarSA() {
+    listaSA = daoSA.cargaSA();
+    modeloTabla8.setRowCount(0);
+    LdSA = new LDobleSA();
+    for (NodoSA n : listaSA) {
+        modeloTabla8.addRow(new Object[]{n.getNroPuesto(), n.getIdFeria(), n.getIdInstrumentosDoc()});
+        LdSA.adicionar(n.getNroPuesto(), n.getIdFeria(), n.getIdInstrumentosDoc());
+        }
+    }
+    
+    //STAND RECREACION
+    public void cargarSR() {
+    listaSR = daoSR.cargaSR();
+    modeloTabla9.setRowCount(0);
+    LdSR = new LDobleSR();
+    for (NodoSR n : listaSR) {
+        modeloTabla9.addRow(new Object[]{n.getNroPuesto(), n.getIdFeria(), n.getId_Componentes()});
+        LdSR.adicionar(n.getNroPuesto(), n.getIdFeria(), n.getId_Componentes());
+        }
+    }
+    
+    //DIAGNOSTICO
+    public void cargarDi() {
+    listaDi = daoDi.cargaDi();
+    modeloTabla10.setRowCount(0);
+    LdDi = new LDobleCirDi();
+    for (NodoDi n : listaDi) {
+        modeloTabla10.addRow(new Object[]{n.getId_Visitante(), n.getId_Medico(), n.getAntesedentes(),n.getMotivo(),n.getHallazgo(),n.getDesiciones(),n.getTratamiento(),n.getEvaluacion(),n.getId_Feria(),n.getFecha()});
+        LdDi.adiprincipio(n.getId_Visitante(), n.getId_Medico(), n.getAntesedentes(),n.getMotivo(),n.getHallazgo(),n.getDesiciones(),n.getTratamiento(),n.getEvaluacion(),n.getId_Feria(),n.getFecha());
+        }
+    }
+    
+    //instruemntos
+    public void cargarInstrumentos(){
+        listaPIDOC=daoPIDOC.cargarInst();
+        modeloTabla11.setRowCount(0);
+        for(InstrumentosDoc v: listaPIDOC){
+            if(v.getId_instrumento()>0){
+                modeloTabla11.addRow(new Object[]{
+                v.getId_instrumento(),
+                v.getGrupo_instrumentos(),
+                v.getNropuesto(),
+                v.getNombre(),
+                v.getTipo(),
+                v.getObservacion()
+                });
+            }
+                
+            
+        }
+    }
+    
+    
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -253,9 +470,32 @@ public class Registo_Visitantes extends javax.swing.JFrame {
         BTN_IR_REGISTR_VISITANTES_DE_FICHASMEDICAS = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
-        Fondo2 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
+        jLabel62 = new javax.swing.JLabel();
+        jLabel63 = new javax.swing.JLabel();
+        jLabel64 = new javax.swing.JLabel();
+        jLabel65 = new javax.swing.JLabel();
+        jLabel66 = new javax.swing.JLabel();
+        jLabel67 = new javax.swing.JLabel();
+        jLabel68 = new javax.swing.JLabel();
+        jLabel69 = new javax.swing.JLabel();
+        TF_ID_VISIT_DI = new javax.swing.JTextField();
+        TF_ID_MEDICO_DI = new javax.swing.JTextField();
+        TF_ANTECEDENTES_DI = new javax.swing.JTextField();
+        TF_MOTIVOS_DI = new javax.swing.JTextField();
+        TF_HALLAZGOS_DI = new javax.swing.JTextField();
+        TF_DECISIONES_DI = new javax.swing.JTextField();
+        TF_TRATAMIENTO_DI = new javax.swing.JTextField();
+        TF_EVALUACION_DI = new javax.swing.JTextField();
+        TF_ID_FERIA_DI = new javax.swing.JTextField();
+        TF_FECHA_DI = new javax.swing.JTextField();
+        BTN_AGREGAR_DIAGNOSTICO = new javax.swing.JButton();
+        jScrollPane11 = new javax.swing.JScrollPane();
+        TABLA_DIAGNOSTICO = new javax.swing.JTable();
+        Fondo2 = new javax.swing.JLabel();
+        JF_FICHAS_INFORMATIVAS = new javax.swing.JFrame();
+        Fondo11 = new javax.swing.JLabel();
         JF_STAND_INFORMATIVO = new javax.swing.JFrame();
         jPanel7 = new javax.swing.JPanel();
         jLabel24 = new javax.swing.JLabel();
@@ -263,6 +503,15 @@ public class Registo_Visitantes extends javax.swing.JFrame {
         BTN_IR_REGISTRO_VISITAS_DE_SI = new javax.swing.JButton();
         BTN_IR_INFORMADORES_DE_SI = new javax.swing.JButton();
         BTN_IR_COMPONENTES_DE_SI = new javax.swing.JButton();
+        jLabel50 = new javax.swing.JLabel();
+        jLabel51 = new javax.swing.JLabel();
+        jLabel52 = new javax.swing.JLabel();
+        TF_NRO_PUESTO_SI = new javax.swing.JTextField();
+        TF_ID_FERIA_SI = new javax.swing.JTextField();
+        TF_ID_COMP_SI = new javax.swing.JTextField();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        TABLA_STAND_INFORMACION = new javax.swing.JTable();
+        BTN_AGREGAR_STAND_INFORMACION = new javax.swing.JButton();
         Fondo3 = new javax.swing.JLabel();
         JF_STAND_ATENCION = new javax.swing.JFrame();
         jPanel8 = new javax.swing.JPanel();
@@ -270,6 +519,15 @@ public class Registo_Visitantes extends javax.swing.JFrame {
         jPanel14 = new javax.swing.JPanel();
         BTN_IR_REGISTRO_VISITANTE_DE_SA = new javax.swing.JButton();
         BTN_IR_DOC_ATENCION_DE_SA = new javax.swing.JButton();
+        jLabel53 = new javax.swing.JLabel();
+        jLabel54 = new javax.swing.JLabel();
+        jLabel55 = new javax.swing.JLabel();
+        TF_NROPUESTO_SA = new javax.swing.JTextField();
+        TF_ID_FERIA_SA = new javax.swing.JTextField();
+        TF_INSTRUMENTOS_SA = new javax.swing.JTextField();
+        BTN_AGREGAR_STAND_ATENCION = new javax.swing.JButton();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        TABLA_STAND_ATENCION = new javax.swing.JTable();
         Fondo4 = new javax.swing.JLabel();
         JF_STAND_RECREACION = new javax.swing.JFrame();
         jPanel9 = new javax.swing.JPanel();
@@ -278,6 +536,15 @@ public class Registo_Visitantes extends javax.swing.JFrame {
         BTN_IR_REGISTRO_VISITANTES_DE_SR = new javax.swing.JButton();
         BTN_IR_REG_RECREACIONISTAS_DE_SR = new javax.swing.JButton();
         BTN_IR_COMPONENTES_DE_SR = new javax.swing.JButton();
+        jLabel56 = new javax.swing.JLabel();
+        jLabel57 = new javax.swing.JLabel();
+        jLabel58 = new javax.swing.JLabel();
+        TF_NRO_PUESTO_SR = new javax.swing.JTextField();
+        TF_ID_FERIA_SR = new javax.swing.JTextField();
+        TF_ID_COMP_SR = new javax.swing.JTextField();
+        BTN_AGREGAR_STAND_RECREACION = new javax.swing.JButton();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        TABLA_STAND_RECREACION = new javax.swing.JTable();
         Fondo5 = new javax.swing.JLabel();
         JF_COMPONENTES = new javax.swing.JFrame();
         jPanel10 = new javax.swing.JPanel();
@@ -285,6 +552,19 @@ public class Registo_Visitantes extends javax.swing.JFrame {
         jPanel17 = new javax.swing.JPanel();
         BTN_IR_SI_DE_COMPONENTES = new javax.swing.JButton();
         BTN_IR_SR_DE_COMPONENTES = new javax.swing.JButton();
+        jLabel45 = new javax.swing.JLabel();
+        jLabel46 = new javax.swing.JLabel();
+        jLabel47 = new javax.swing.JLabel();
+        jLabel48 = new javax.swing.JLabel();
+        jLabel49 = new javax.swing.JLabel();
+        TF_ID_COMP = new javax.swing.JTextField();
+        TF_ID_GRUPOCOMP = new javax.swing.JTextField();
+        TF_NOMBRE_COMP = new javax.swing.JTextField();
+        TF_UTILIDAD_COMP = new javax.swing.JTextField();
+        TF_OBSERVACIONES_COMP = new javax.swing.JTextField();
+        BTN_AGREGAR_COMPONENTES = new javax.swing.JButton();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        TABLA_COMPONENTES = new javax.swing.JTable();
         Fondo6 = new javax.swing.JLabel();
         JF_INFORMADORES = new javax.swing.JFrame();
         jPanel11 = new javax.swing.JPanel();
@@ -329,7 +609,7 @@ public class Registo_Visitantes extends javax.swing.JFrame {
         jLabel42 = new javax.swing.JLabel();
         jLabel43 = new javax.swing.JLabel();
         jLabel44 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        BTN_AGREGAR_PERSONAL_RECREACION = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
         TABLA_PERSONAL_RECREACION = new javax.swing.JTable();
         TF_ID_RECREACIONISTA_PR = new javax.swing.JTextField();
@@ -339,7 +619,37 @@ public class Registo_Visitantes extends javax.swing.JFrame {
         Fondo9 = new javax.swing.JLabel();
         EJERCICIOS = new javax.swing.JFrame();
         BTN_IR_VIST_DE_EJERCICIOS = new javax.swing.JButton();
+        jPanel21 = new javax.swing.JPanel();
+        jLabel59 = new javax.swing.JLabel();
+        BTN_MOSTRAR_VASITANTES_DE_CADA_STAND = new javax.swing.JButton();
+        jScrollPane10 = new javax.swing.JScrollPane();
+        TXTA_RESULTADOS = new javax.swing.JTextArea();
+        jPanel22 = new javax.swing.JPanel();
+        jLabel60 = new javax.swing.JLabel();
+        jLabel61 = new javax.swing.JLabel();
+        BTN_BUSCAR_DOC_X = new javax.swing.JButton();
         Fondo10 = new javax.swing.JLabel();
+        JF_INSTRUMENTO = new javax.swing.JFrame();
+        jPanel23 = new javax.swing.JPanel();
+        jLabel70 = new javax.swing.JLabel();
+        jLabel71 = new javax.swing.JLabel();
+        jLabel72 = new javax.swing.JLabel();
+        jLabel73 = new javax.swing.JLabel();
+        jLabel74 = new javax.swing.JLabel();
+        jLabel75 = new javax.swing.JLabel();
+        jLabel76 = new javax.swing.JLabel();
+        TF_ID_INST = new javax.swing.JTextField();
+        TF_GRUPO_INSTRUMENTO = new javax.swing.JTextField();
+        TF_NRO_PUESTO_INST = new javax.swing.JTextField();
+        TF_NOMBRE_INST = new javax.swing.JTextField();
+        TF_TIPO_INST = new javax.swing.JTextField();
+        TF_OBS_INST = new javax.swing.JTextField();
+        BTN_AGREGAR_INSTRUEMNTO = new javax.swing.JButton();
+        jPanel25 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jScrollPane13 = new javax.swing.JScrollPane();
+        TABLA_INSTRUMENTO = new javax.swing.JTable();
+        Fondo12 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         TFci_visitante = new javax.swing.JTextField();
@@ -376,6 +686,7 @@ public class Registo_Visitantes extends javax.swing.JFrame {
         BTN_IR_STAND_RECRACION_DE_VISIT = new javax.swing.JButton();
         BTN_IR_FERIAS_DE_VIST = new javax.swing.JButton();
         BTN_IR_EJERCICIOS_DE_VIST = new javax.swing.JButton();
+        BTN_IR_INSTRUMENTO_DE_VISITANTES = new javax.swing.JButton();
         Fondo = new javax.swing.JLabel();
 
         JF_REGISTRO_PERSONAL.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -581,7 +892,7 @@ public class Registo_Visitantes extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(BTN_IR_REGISTR_VISITANTES_DE_FICHASMEDICAS)
-                .addContainerGap(7, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         JF_FICHAS_MEDICAS.getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 110, 230, 40));
@@ -602,19 +913,103 @@ public class Registo_Visitantes extends javax.swing.JFrame {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addComponent(jLabel23)
-                .addGap(0, 6, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         JF_FICHAS_MEDICAS.getContentPane().add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 850, 70));
 
+        jLabel31.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel31.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel31.setText("ID VISITANTE");
+        JF_FICHAS_MEDICAS.getContentPane().add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, -1, -1));
+
+        jLabel32.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel32.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel32.setText("ID MEDICO");
+        JF_FICHAS_MEDICAS.getContentPane().add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, -1, -1));
+
+        jLabel62.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel62.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel62.setText("MOTIVO");
+        JF_FICHAS_MEDICAS.getContentPane().add(jLabel62, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 200, -1, 30));
+
+        jLabel63.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel63.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel63.setText("ID FERIA");
+        JF_FICHAS_MEDICAS.getContentPane().add(jLabel63, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 350, -1, 30));
+
+        jLabel64.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel64.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel64.setText("ANTECEDENTES");
+        JF_FICHAS_MEDICAS.getContentPane().add(jLabel64, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 170, 120, 30));
+
+        jLabel65.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel65.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel65.setText("FECHA");
+        JF_FICHAS_MEDICAS.getContentPane().add(jLabel65, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 380, -1, 30));
+
+        jLabel66.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel66.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel66.setText("EVALUACION");
+        JF_FICHAS_MEDICAS.getContentPane().add(jLabel66, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 320, -1, 30));
+
+        jLabel67.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel67.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel67.setText("HALLAZGO");
+        JF_FICHAS_MEDICAS.getContentPane().add(jLabel67, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 230, -1, 30));
+
+        jLabel68.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel68.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel68.setText("DESICIONES");
+        JF_FICHAS_MEDICAS.getContentPane().add(jLabel68, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 260, -1, 30));
+
+        jLabel69.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel69.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel69.setText("TRATAMIENTO");
+        JF_FICHAS_MEDICAS.getContentPane().add(jLabel69, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 290, -1, 30));
+        JF_FICHAS_MEDICAS.getContentPane().add(TF_ID_VISIT_DI, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 110, 140, -1));
+        JF_FICHAS_MEDICAS.getContentPane().add(TF_ID_MEDICO_DI, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 140, 140, -1));
+        JF_FICHAS_MEDICAS.getContentPane().add(TF_ANTECEDENTES_DI, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 170, 140, -1));
+        JF_FICHAS_MEDICAS.getContentPane().add(TF_MOTIVOS_DI, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 200, 140, -1));
+        JF_FICHAS_MEDICAS.getContentPane().add(TF_HALLAZGOS_DI, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 230, 140, -1));
+        JF_FICHAS_MEDICAS.getContentPane().add(TF_DECISIONES_DI, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 260, 140, -1));
+        JF_FICHAS_MEDICAS.getContentPane().add(TF_TRATAMIENTO_DI, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 290, 140, -1));
+        JF_FICHAS_MEDICAS.getContentPane().add(TF_EVALUACION_DI, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 320, 140, -1));
+        JF_FICHAS_MEDICAS.getContentPane().add(TF_ID_FERIA_DI, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 350, 140, -1));
+        JF_FICHAS_MEDICAS.getContentPane().add(TF_FECHA_DI, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 380, 140, -1));
+
+        BTN_AGREGAR_DIAGNOSTICO.setBackground(new java.awt.Color(0, 0, 255));
+        BTN_AGREGAR_DIAGNOSTICO.setForeground(new java.awt.Color(255, 255, 255));
+        BTN_AGREGAR_DIAGNOSTICO.setText("AGREGAR");
+        BTN_AGREGAR_DIAGNOSTICO.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTN_AGREGAR_DIAGNOSTICOActionPerformed(evt);
+            }
+        });
+        JF_FICHAS_MEDICAS.getContentPane().add(BTN_AGREGAR_DIAGNOSTICO, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 397, 110, 40));
+
+        TABLA_DIAGNOSTICO.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID VISITANTE", "ID MEDICO", "ANTECEDENTES", "MOTIVO", "HALLAZGO", "DESICIONES", "TRATAMIENTO", "EVALUACION", "ID FERIA", "FECHA"
+            }
+        ));
+        jScrollPane11.setViewportView(TABLA_DIAGNOSTICO);
+
+        JF_FICHAS_MEDICAS.getContentPane().add(jScrollPane11, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 441, 810, 150));
+
         Fondo2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondo.png"))); // NOI18N
         JF_FICHAS_MEDICAS.getContentPane().add(Fondo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 600));
 
-        jLabel31.setText("jLabel31");
-        JF_FICHAS_MEDICAS.getContentPane().add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, -1, -1));
+        JF_FICHAS_INFORMATIVAS.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel32.setText("jLabel32");
-        JF_FICHAS_MEDICAS.getContentPane().add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 170, -1, -1));
+        Fondo11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondo.png"))); // NOI18N
+        JF_FICHAS_INFORMATIVAS.getContentPane().add(Fondo11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 600));
 
         JF_STAND_INFORMATIVO.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -697,6 +1092,49 @@ public class Registo_Visitantes extends javax.swing.JFrame {
 
         JF_STAND_INFORMATIVO.getContentPane().add(jPanel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 120, -1, 110));
 
+        jLabel50.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel50.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel50.setText("NRO PUESTO");
+        JF_STAND_INFORMATIVO.getContentPane().add(jLabel50, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 210, 100, 30));
+
+        jLabel51.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel51.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel51.setText("ID FERIA");
+        JF_STAND_INFORMATIVO.getContentPane().add(jLabel51, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 250, 60, 30));
+
+        jLabel52.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel52.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel52.setText("ID COMPONENTES");
+        JF_STAND_INFORMATIVO.getContentPane().add(jLabel52, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 290, 130, 30));
+        JF_STAND_INFORMATIVO.getContentPane().add(TF_NRO_PUESTO_SI, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 210, 130, 30));
+        JF_STAND_INFORMATIVO.getContentPane().add(TF_ID_FERIA_SI, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 250, 130, 30));
+        JF_STAND_INFORMATIVO.getContentPane().add(TF_ID_COMP_SI, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 290, 130, 30));
+
+        TABLA_STAND_INFORMACION.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "NRO PUESTO", "ID FERIA", "ID COMPONENTES"
+            }
+        ));
+        jScrollPane7.setViewportView(TABLA_STAND_INFORMACION);
+
+        JF_STAND_INFORMATIVO.getContentPane().add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 450, 800, 130));
+
+        BTN_AGREGAR_STAND_INFORMACION.setBackground(new java.awt.Color(0, 0, 255));
+        BTN_AGREGAR_STAND_INFORMACION.setForeground(new java.awt.Color(255, 255, 255));
+        BTN_AGREGAR_STAND_INFORMACION.setText("AGREGAR");
+        BTN_AGREGAR_STAND_INFORMACION.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTN_AGREGAR_STAND_INFORMACIONActionPerformed(evt);
+            }
+        });
+        JF_STAND_INFORMATIVO.getContentPane().add(BTN_AGREGAR_STAND_INFORMACION, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 400, 120, 40));
+
         Fondo3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondo.png"))); // NOI18N
         JF_STAND_INFORMATIVO.getContentPane().add(Fondo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 600));
 
@@ -767,6 +1205,49 @@ public class Registo_Visitantes extends javax.swing.JFrame {
 
         JF_STAND_ATENCION.getContentPane().add(jPanel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 120, 170, 70));
 
+        jLabel53.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel53.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel53.setText("NRO PUESTO");
+        JF_STAND_ATENCION.getContentPane().add(jLabel53, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 190, -1, -1));
+
+        jLabel54.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel54.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel54.setText("ID FERIA");
+        JF_STAND_ATENCION.getContentPane().add(jLabel54, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, -1, -1));
+
+        jLabel55.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel55.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel55.setText("ID INSTRUMENTOS");
+        JF_STAND_ATENCION.getContentPane().add(jLabel55, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 250, -1, -1));
+        JF_STAND_ATENCION.getContentPane().add(TF_NROPUESTO_SA, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 190, 150, -1));
+        JF_STAND_ATENCION.getContentPane().add(TF_ID_FERIA_SA, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 220, 150, -1));
+        JF_STAND_ATENCION.getContentPane().add(TF_INSTRUMENTOS_SA, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 250, 150, -1));
+
+        BTN_AGREGAR_STAND_ATENCION.setBackground(new java.awt.Color(0, 0, 255));
+        BTN_AGREGAR_STAND_ATENCION.setForeground(new java.awt.Color(255, 255, 255));
+        BTN_AGREGAR_STAND_ATENCION.setText("AGREGAR");
+        BTN_AGREGAR_STAND_ATENCION.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTN_AGREGAR_STAND_ATENCIONActionPerformed(evt);
+            }
+        });
+        JF_STAND_ATENCION.getContentPane().add(BTN_AGREGAR_STAND_ATENCION, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 387, 100, 30));
+
+        TABLA_STAND_ATENCION.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "NRO PUESTO", "ID FERIA", "ID INSTRUMENTO"
+            }
+        ));
+        jScrollPane8.setViewportView(TABLA_STAND_ATENCION);
+
+        JF_STAND_ATENCION.getContentPane().add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 440, 770, 130));
+
         Fondo4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondo.png"))); // NOI18N
         JF_STAND_ATENCION.getContentPane().add(Fondo4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 600));
 
@@ -782,14 +1263,14 @@ public class Registo_Visitantes extends javax.swing.JFrame {
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addGap(192, 192, 192)
                 .addComponent(jLabel26)
-                .addContainerGap(224, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel26)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         JF_STAND_RECREACION.getContentPane().add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 850, 90));
@@ -844,13 +1325,68 @@ public class Registo_Visitantes extends javax.swing.JFrame {
                 .addComponent(BTN_IR_REG_RECREACIONISTAS_DE_SR)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(BTN_IR_COMPONENTES_DE_SR)
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         JF_STAND_RECREACION.getContentPane().add(jPanel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 130, -1, 110));
 
+        jLabel56.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel56.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel56.setText("NRO PUESTO");
+        JF_STAND_RECREACION.getContentPane().add(jLabel56, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 190, -1, -1));
+
+        jLabel57.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel57.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel57.setText("ID FERIA");
+        JF_STAND_RECREACION.getContentPane().add(jLabel57, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 230, -1, -1));
+
+        jLabel58.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel58.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel58.setText("ID COMPONENTE");
+        JF_STAND_RECREACION.getContentPane().add(jLabel58, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 270, -1, -1));
+
+        TF_NRO_PUESTO_SR.setToolTipText("");
+        TF_NRO_PUESTO_SR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TF_NRO_PUESTO_SRActionPerformed(evt);
+            }
+        });
+        JF_STAND_RECREACION.getContentPane().add(TF_NRO_PUESTO_SR, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 180, 120, -1));
+
+        TF_ID_FERIA_SR.setToolTipText("");
+        JF_STAND_RECREACION.getContentPane().add(TF_ID_FERIA_SR, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 220, 120, -1));
+
+        TF_ID_COMP_SR.setToolTipText("");
+        JF_STAND_RECREACION.getContentPane().add(TF_ID_COMP_SR, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 260, 120, -1));
+
+        BTN_AGREGAR_STAND_RECREACION.setBackground(new java.awt.Color(0, 0, 255));
+        BTN_AGREGAR_STAND_RECREACION.setForeground(new java.awt.Color(255, 255, 255));
+        BTN_AGREGAR_STAND_RECREACION.setText("AGREGAR");
+        BTN_AGREGAR_STAND_RECREACION.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTN_AGREGAR_STAND_RECREACIONActionPerformed(evt);
+            }
+        });
+        JF_STAND_RECREACION.getContentPane().add(BTN_AGREGAR_STAND_RECREACION, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 300, 100, 60));
+
+        TABLA_STAND_RECREACION.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "NRO PUESTO", "ID FERIA", "ID COMPONENTE"
+            }
+        ));
+        jScrollPane9.setViewportView(TABLA_STAND_RECREACION);
+
+        JF_STAND_RECREACION.getContentPane().add(jScrollPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 450, 760, 110));
+
         Fondo5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondo.png"))); // NOI18N
-        JF_STAND_RECREACION.getContentPane().add(Fondo5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 600));
+        Fondo5.setToolTipText("");
+        JF_STAND_RECREACION.getContentPane().add(Fondo5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 850, 600));
 
         JF_COMPONENTES.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -916,7 +1452,68 @@ public class Registo_Visitantes extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        JF_COMPONENTES.getContentPane().add(jPanel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 120, 170, 70));
+        JF_COMPONENTES.getContentPane().add(jPanel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 120, 180, 70));
+
+        jLabel45.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel45.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel45.setText("ID COMPONENTE");
+        JF_COMPONENTES.getContentPane().add(jLabel45, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 170, -1, -1));
+
+        jLabel46.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel46.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel46.setText("ID GRUPO COMPONENTE");
+        JF_COMPONENTES.getContentPane().add(jLabel46, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, -1, -1));
+
+        jLabel47.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel47.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel47.setText("NOMBRE");
+        JF_COMPONENTES.getContentPane().add(jLabel47, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 230, -1, -1));
+
+        jLabel48.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel48.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel48.setText("UTILIDAD");
+        JF_COMPONENTES.getContentPane().add(jLabel48, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 260, -1, -1));
+
+        jLabel49.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel49.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel49.setText("OBSERVACIONES");
+        JF_COMPONENTES.getContentPane().add(jLabel49, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 290, -1, -1));
+
+        TF_ID_COMP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TF_ID_COMPActionPerformed(evt);
+            }
+        });
+        JF_COMPONENTES.getContentPane().add(TF_ID_COMP, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 170, 160, -1));
+        JF_COMPONENTES.getContentPane().add(TF_ID_GRUPOCOMP, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 200, 160, -1));
+        JF_COMPONENTES.getContentPane().add(TF_NOMBRE_COMP, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 230, 160, -1));
+        JF_COMPONENTES.getContentPane().add(TF_UTILIDAD_COMP, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 260, 160, -1));
+        JF_COMPONENTES.getContentPane().add(TF_OBSERVACIONES_COMP, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 290, 160, -1));
+
+        BTN_AGREGAR_COMPONENTES.setBackground(new java.awt.Color(0, 0, 255));
+        BTN_AGREGAR_COMPONENTES.setForeground(new java.awt.Color(255, 255, 255));
+        BTN_AGREGAR_COMPONENTES.setText("AGREGAR");
+        BTN_AGREGAR_COMPONENTES.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTN_AGREGAR_COMPONENTESActionPerformed(evt);
+            }
+        });
+        JF_COMPONENTES.getContentPane().add(BTN_AGREGAR_COMPONENTES, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 370, 100, 50));
+
+        TABLA_COMPONENTES.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "ID COMPONENTE", "ID GRUPO COMPONENTE", "NOMBRE", "UTILIDAD", "OBSERVACIONES"
+            }
+        ));
+        jScrollPane6.setViewportView(TABLA_COMPONENTES);
+
+        JF_COMPONENTES.getContentPane().add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, 780, 130));
 
         Fondo6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondo.png"))); // NOI18N
         JF_COMPONENTES.getContentPane().add(Fondo6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 600));
@@ -1211,15 +1808,15 @@ public class Registo_Visitantes extends javax.swing.JFrame {
         jLabel44.setText("ID FERIA");
         JF_RECREACIONISTAS.getContentPane().add(jLabel44, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 290, -1, -1));
 
-        jButton1.setBackground(new java.awt.Color(0, 0, 255));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("AGREGAR");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        BTN_AGREGAR_PERSONAL_RECREACION.setBackground(new java.awt.Color(0, 0, 255));
+        BTN_AGREGAR_PERSONAL_RECREACION.setForeground(new java.awt.Color(255, 255, 255));
+        BTN_AGREGAR_PERSONAL_RECREACION.setText("AGREGAR");
+        BTN_AGREGAR_PERSONAL_RECREACION.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                BTN_AGREGAR_PERSONAL_RECREACIONActionPerformed(evt);
             }
         });
-        JF_RECREACIONISTAS.getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 357, 100, 40));
+        JF_RECREACIONISTAS.getContentPane().add(BTN_AGREGAR_PERSONAL_RECREACION, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 357, 100, 40));
 
         TABLA_PERSONAL_RECREACION.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1261,8 +1858,217 @@ public class Registo_Visitantes extends javax.swing.JFrame {
         });
         EJERCICIOS.getContentPane().add(BTN_IR_VIST_DE_EJERCICIOS, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 530, 160, -1));
 
+        jPanel21.setBackground(new java.awt.Color(102, 102, 102));
+        jPanel21.setForeground(new java.awt.Color(102, 102, 102));
+
+        jLabel59.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel59.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel59.setText("- mostrar cuantos visitantes tubo cada stand  ");
+
+        javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
+        jPanel21.setLayout(jPanel21Layout);
+        jPanel21Layout.setHorizontalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel21Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel59)
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
+        jPanel21Layout.setVerticalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel21Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel59, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        EJERCICIOS.getContentPane().add(jPanel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 340, 30));
+
+        BTN_MOSTRAR_VASITANTES_DE_CADA_STAND.setBackground(new java.awt.Color(102, 153, 255));
+        BTN_MOSTRAR_VASITANTES_DE_CADA_STAND.setForeground(new java.awt.Color(51, 51, 51));
+        BTN_MOSTRAR_VASITANTES_DE_CADA_STAND.setText("MOSTRAR");
+        BTN_MOSTRAR_VASITANTES_DE_CADA_STAND.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTN_MOSTRAR_VASITANTES_DE_CADA_STANDActionPerformed(evt);
+            }
+        });
+        EJERCICIOS.getContentPane().add(BTN_MOSTRAR_VASITANTES_DE_CADA_STAND, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 20, 120, 40));
+
+        TXTA_RESULTADOS.setColumns(20);
+        TXTA_RESULTADOS.setRows(5);
+        jScrollPane10.setViewportView(TXTA_RESULTADOS);
+
+        EJERCICIOS.getContentPane().add(jScrollPane10, new org.netbeans.lib.awtextra.AbsoluteConstraints(498, 40, 330, 370));
+
+        jPanel22.setBackground(new java.awt.Color(102, 102, 102));
+
+        jLabel60.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel60.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel60.setText("Verificar que doctor x exita, y mostrar su informacion");
+
+        jLabel61.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel61.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel61.setText("y en donde se encuentra  ");
+
+        javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
+        jPanel22.setLayout(jPanel22Layout);
+        jPanel22Layout.setHorizontalGroup(
+            jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel22Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel60, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel61, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel22Layout.setVerticalGroup(
+            jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel22Layout.createSequentialGroup()
+                .addComponent(jLabel60)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel61)
+                .addContainerGap())
+        );
+
+        EJERCICIOS.getContentPane().add(jPanel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 390, 50));
+
+        BTN_BUSCAR_DOC_X.setBackground(new java.awt.Color(255, 153, 0));
+        BTN_BUSCAR_DOC_X.setForeground(new java.awt.Color(0, 0, 0));
+        BTN_BUSCAR_DOC_X.setText("BUSCAR");
+        BTN_BUSCAR_DOC_X.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTN_BUSCAR_DOC_XActionPerformed(evt);
+            }
+        });
+        EJERCICIOS.getContentPane().add(BTN_BUSCAR_DOC_X, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, 160, -1));
+
         Fondo10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondo.png"))); // NOI18N
         EJERCICIOS.getContentPane().add(Fondo10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 600));
+
+        JF_INSTRUMENTO.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel23.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel70.setFont(new java.awt.Font("Segoe UI", 2, 60)); // NOI18N
+        jLabel70.setText("INSTRUMENTOS");
+
+        javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
+        jPanel23.setLayout(jPanel23Layout);
+        jPanel23Layout.setHorizontalGroup(
+            jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel23Layout.createSequentialGroup()
+                .addGap(209, 209, 209)
+                .addComponent(jLabel70)
+                .addContainerGap(213, Short.MAX_VALUE))
+        );
+        jPanel23Layout.setVerticalGroup(
+            jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel23Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel70)
+                .addContainerGap(13, Short.MAX_VALUE))
+        );
+
+        JF_INSTRUMENTO.getContentPane().add(jPanel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 850, 100));
+
+        jLabel71.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel71.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel71.setText("ID INSTRUMENTO");
+        JF_INSTRUMENTO.getContentPane().add(jLabel71, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, -1, -1));
+
+        jLabel72.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel72.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel72.setText("GRUPO INSTRUMENTO");
+        JF_INSTRUMENTO.getContentPane().add(jLabel72, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, -1, -1));
+
+        jLabel73.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel73.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel73.setText("NRO PUESTO");
+        JF_INSTRUMENTO.getContentPane().add(jLabel73, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 260, -1, -1));
+
+        jLabel74.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel74.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel74.setText("NOMBRE");
+        JF_INSTRUMENTO.getContentPane().add(jLabel74, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 290, -1, -1));
+
+        jLabel75.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel75.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel75.setText("TIPO");
+        JF_INSTRUMENTO.getContentPane().add(jLabel75, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 320, -1, -1));
+
+        jLabel76.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel76.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel76.setText("OBSERVACIONES");
+        JF_INSTRUMENTO.getContentPane().add(jLabel76, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 350, -1, -1));
+        JF_INSTRUMENTO.getContentPane().add(TF_ID_INST, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 200, 150, -1));
+
+        TF_GRUPO_INSTRUMENTO.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TF_GRUPO_INSTRUMENTOActionPerformed(evt);
+            }
+        });
+        JF_INSTRUMENTO.getContentPane().add(TF_GRUPO_INSTRUMENTO, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 230, 150, -1));
+        JF_INSTRUMENTO.getContentPane().add(TF_NRO_PUESTO_INST, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 260, 150, -1));
+        JF_INSTRUMENTO.getContentPane().add(TF_NOMBRE_INST, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 290, 150, -1));
+        JF_INSTRUMENTO.getContentPane().add(TF_TIPO_INST, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 320, 150, -1));
+        JF_INSTRUMENTO.getContentPane().add(TF_OBS_INST, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 350, 150, -1));
+
+        BTN_AGREGAR_INSTRUEMNTO.setBackground(new java.awt.Color(0, 0, 255));
+        BTN_AGREGAR_INSTRUEMNTO.setForeground(new java.awt.Color(255, 255, 255));
+        BTN_AGREGAR_INSTRUEMNTO.setText("AGREGAR");
+        BTN_AGREGAR_INSTRUEMNTO.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTN_AGREGAR_INSTRUEMNTOActionPerformed(evt);
+            }
+        });
+        JF_INSTRUMENTO.getContentPane().add(BTN_AGREGAR_INSTRUEMNTO, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 380, -1, -1));
+
+        jPanel25.setBackground(new java.awt.Color(153, 153, 153));
+
+        jButton1.setBackground(new java.awt.Color(102, 102, 102));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("REGISTRO VISITANTES");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel25Layout = new javax.swing.GroupLayout(jPanel25);
+        jPanel25.setLayout(jPanel25Layout);
+        jPanel25Layout.setHorizontalGroup(
+            jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel25Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel25Layout.setVerticalGroup(
+            jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel25Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton1)
+                .addContainerGap(7, Short.MAX_VALUE))
+        );
+
+        JF_INSTRUMENTO.getContentPane().add(jPanel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 140, -1, 40));
+
+        TABLA_INSTRUMENTO.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "ID INSTRUMENTO", "GRUPO INSTRUMENTO", "NRO PUESTO", "TIPO", "OBSERVACIONES"
+            }
+        ));
+        jScrollPane13.setViewportView(TABLA_INSTRUMENTO);
+
+        JF_INSTRUMENTO.getContentPane().add(jScrollPane13, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 430, 770, 140));
+
+        Fondo12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondo.png"))); // NOI18N
+        JF_INSTRUMENTO.getContentPane().add(Fondo12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 590));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1473,21 +2279,35 @@ public class Registo_Visitantes extends javax.swing.JFrame {
             }
         });
 
+        BTN_IR_INSTRUMENTO_DE_VISITANTES.setBackground(new java.awt.Color(102, 102, 102));
+        BTN_IR_INSTRUMENTO_DE_VISITANTES.setForeground(new java.awt.Color(255, 255, 255));
+        BTN_IR_INSTRUMENTO_DE_VISITANTES.setText("INSTRUMENTOS");
+        BTN_IR_INSTRUMENTO_DE_VISITANTES.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTN_IR_INSTRUMENTO_DE_VISITANTESActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(BTN_IR_STAND_ATENCION_DE_VISIT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(BTN_IR_STAND_INFORMACION_DE_VISIT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(BTN_IR_FICHAMEDICA_DE_VISIT, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
-                    .addComponent(BTN_IR_PERSONAL_DE_VISIT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(BTN_IR_STAND_RECRACION_DE_VISIT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(BTN_IR_FERIAS_DE_VIST, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(BTN_IR_EJERCICIOS_DE_VIST, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(BTN_IR_INSTRUMENTO_DE_VISITANTES, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(BTN_IR_STAND_RECRACION_DE_VISIT, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(BTN_IR_EJERCICIOS_DE_VIST, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(BTN_IR_STAND_ATENCION_DE_VISIT, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(BTN_IR_FICHAMEDICA_DE_VISIT, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BTN_IR_STAND_INFORMACION_DE_VISIT, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BTN_IR_FERIAS_DE_VIST, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(BTN_IR_PERSONAL_DE_VISIT, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1504,12 +2324,14 @@ public class Registo_Visitantes extends javax.swing.JFrame {
                 .addComponent(BTN_IR_STAND_RECRACION_DE_VISIT)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(BTN_IR_FERIAS_DE_VIST)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(BTN_IR_INSTRUMENTO_DE_VISITANTES)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(BTN_IR_EJERCICIOS_DE_VIST)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 120, 190, 250));
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 130, 200, 270));
 
         Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondo.png"))); // NOI18N
         getContentPane().add(Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 600));
@@ -1680,6 +2502,117 @@ public class Registo_Visitantes extends javax.swing.JFrame {
             }
         }
         LsPR.mostrar();
+        
+        //componentes
+        listaC = daoC.cargaComponente();
+        modeloTabla6.setRowCount(0);
+        LsC = new LSimpleC();
+
+        for (NodoC n : listaC) {
+            if (n != null) {
+                modeloTabla6.addRow(new Object[]{
+                    n.getId_componente(),
+                    n.getId_GrupoComponente(),
+                    n.getNombre(),
+                    n.getUtilidad(),
+                    n.getObservaciones()
+                });
+
+                LsC.adiFinal(n.getId_componente(), n.getId_GrupoComponente(), n.getNombre(), n.getUtilidad(),n.getObservaciones());
+            }
+        }
+        LsC.mostrar();
+        
+        //STAND INFORMACION     
+        listaSI = daoSI.cargaSI();
+        modeloTabla7.setRowCount(0);
+        LdSI = new LDobleSI();
+
+        for (NodoSI n : listaSI) {
+            if (n != null) {
+                modeloTabla7.addRow(new Object[]{
+                    n.getNroPuesto(),
+                    n.getIdFeria(),
+                    n.getId_Componentes()
+                });
+
+                LdSI.adicionar(n.getNroPuesto(),n.getIdFeria(),n.getId_Componentes());
+            }
+        }
+        LdSI.mostrar();
+        
+        //STAND ATENCION     
+        listaSA = daoSA.cargaSA();
+        modeloTabla8.setRowCount(0);
+        LdSA = new LDobleSA();
+
+        for (NodoSA n : listaSA) {
+            if (n != null) {
+                modeloTabla8.addRow(new Object[]{
+                    n.getNroPuesto(),
+                    n.getIdFeria(),
+                    n.getIdInstrumentosDoc()
+                });
+
+                LdSA.adicionar(n.getNroPuesto(),n.getIdFeria(),n.getIdInstrumentosDoc());
+            }
+        }
+        LdSA.mostrar();
+        
+        
+        //STAND RECREACION     
+        listaSR = daoSR.cargaSR();
+        modeloTabla9.setRowCount(0);
+        LdSR = new LDobleSR();
+
+        for (NodoSR n : listaSR) {
+            if (n != null) {
+                modeloTabla9.addRow(new Object[]{
+                    n.getNroPuesto(),
+                    n.getIdFeria(),
+                    n.getId_Componentes()
+                });
+
+                LdSR.adicionar(n.getNroPuesto(),n.getIdFeria(),n.getId_Componentes());
+            }
+        }
+        LdSR.mostrar();
+        
+        //DIAGNOSTICO 
+        listaDi = daoDi.cargaDi();
+        modeloTabla10.setRowCount(0);
+        LdDi = new LDobleCirDi();
+
+        for (NodoDi n : listaDi) {
+            if (n != null) {
+                modeloTabla10.addRow(new Object[]{
+                    n.getId_Visitante(), n.getId_Medico(), n.getAntesedentes(),n.getMotivo(),n.getHallazgo(),n.getDesiciones(),n.getTratamiento(),n.getEvaluacion(),n.getId_Feria(),n.getFecha()
+                });
+
+                LdDi.adiprincipio(n.getId_Visitante(), n.getId_Medico(), n.getAntesedentes(),n.getMotivo(),n.getHallazgo(),n.getDesiciones(),n.getTratamiento(),n.getEvaluacion(),n.getId_Feria(),n.getFecha());
+            }
+        }
+        LdDi.mostrar();
+        JOptionPane.showMessageDialog(this, "ESTRUCTURAS LLENAS xD");
+        
+        // INSTRUMENTO
+        listaPIDOC = daoPIDOC.cargarInst();
+        modeloTabla11.setRowCount(0);
+        PInsD = new PilaInsD();
+        
+        for(InstrumentosDoc v : listaPIDOC){
+            if(v.getId_instrumento()> 0){
+                modeloTabla11.addRow(new Object[]{
+                    v.getId_instrumento(), v.getGrupo_instrumentos(), v.getNropuesto(),
+                    v.getNombre(), v.getTipo(), v.getObservacion()
+                });
+
+                PInsD.adicionar(v);
+            }
+        
+        }
+        PInsD.mostrar();
+        JOptionPane.showMessageDialog(this, "ESTRUCTURAS LLENAS xD");
     }//GEN-LAST:event_BTNLlenarActionPerformed
 
     
@@ -1897,6 +2830,10 @@ public class Registo_Visitantes extends javax.swing.JFrame {
     }//GEN-LAST:event_BTN_AGREGAR_PERSONAL_ATENCIONActionPerformed
 
     private void TF_ID_RECREACIONISTA_PRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_ID_RECREACIONISTA_PRActionPerformed
+        
+    }//GEN-LAST:event_TF_ID_RECREACIONISTA_PRActionPerformed
+
+    private void BTN_AGREGAR_PERSONAL_RECREACIONActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTN_AGREGAR_PERSONAL_RECREACIONActionPerformed
         NodoPR n = new NodoPR();
         n.setId_recreacionista(Integer.parseInt(TF_ID_RECREACIONISTA_PR.getText()));
         n.setHorario(TF_HORARIO_PR.getText());
@@ -1910,11 +2847,152 @@ public class Registo_Visitantes extends javax.swing.JFrame {
         LimpiarCampos_Personal_Recreacion();
         JOptionPane.showMessageDialog(this, "Informador agregado correctamente");
         LsPR.mostrar();
-    }//GEN-LAST:event_TF_ID_RECREACIONISTA_PRActionPerformed
+    }//GEN-LAST:event_BTN_AGREGAR_PERSONAL_RECREACIONActionPerformed
+
+    private void TF_ID_COMPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_ID_COMPActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TF_ID_COMPActionPerformed
+
+    private void BTN_AGREGAR_COMPONENTESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTN_AGREGAR_COMPONENTESActionPerformed
+        NodoC n = new NodoC();
+        n.setId_componente(Integer.parseInt(TF_ID_COMP.getText()));
+        n.setId_GrupoComponente(Integer.parseInt(TF_ID_GRUPOCOMP.getText()));
+        n.setNombre(TF_NOMBRE_COMP.getText());
+        n.setUtilidad(TF_UTILIDAD_COMP.getText());
+        n.setObservaciones(TF_OBSERVACIONES_COMP.getText());
+
+        listaC.add(n);          
+        LsC.adiFinal(n.getId_componente(), n.getId_GrupoComponente(), n.getNombre(), n.getUtilidad(),n.getObservaciones()); 
+        modeloTabla6.addRow(new Object[]{n.getId_componente(), n.getId_GrupoComponente(), n.getNombre(), n.getUtilidad(),n.getObservaciones()});
+        daoC.guardarComponente(listaC); // guardar archivo
+        LimpiarCampos_Componentes();
+        JOptionPane.showMessageDialog(this, "Informador agregado correctamente");
+        LsC.mostrar();
+    }//GEN-LAST:event_BTN_AGREGAR_COMPONENTESActionPerformed
+
+    private void BTN_AGREGAR_STAND_INFORMACIONActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTN_AGREGAR_STAND_INFORMACIONActionPerformed
+        NodoSI n = new NodoSI();
+        n.setNroPuesto(Integer.parseInt(TF_NRO_PUESTO_SI.getText()));
+        n.setIdFeria(Integer.parseInt(TF_ID_FERIA_SI.getText()));
+        n.setId_Componentes(Integer.parseInt(TF_ID_COMP_SI.getText()));
+        
+
+        listaSI.add(n);          
+        LdSI.adicionar(n.getNroPuesto(),n.getIdFeria(),n.getId_Componentes()); 
+        modeloTabla7.addRow(new Object[]{n.getNroPuesto(),n.getIdFeria(),n.getId_Componentes()});
+        daoSI.guardarSI(listaSI); 
+        LimpiarCampos_SI();
+        JOptionPane.showMessageDialog(this, "Informador agregado correctamente");
+        LdSI.mostrar();
+    }//GEN-LAST:event_BTN_AGREGAR_STAND_INFORMACIONActionPerformed
+
+    private void BTN_AGREGAR_STAND_ATENCIONActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTN_AGREGAR_STAND_ATENCIONActionPerformed
+         NodoSA n = new NodoSA();
+        n.setNroPuesto(Integer.parseInt(TF_NROPUESTO_SA.getText()));
+        n.setIdFeria(Integer.parseInt(TF_ID_FERIA_SA.getText()));
+        n.setIdInstrumentosDoc(Integer.parseInt(TF_INSTRUMENTOS_SA.getText()));
+        
+
+        listaSA.add(n);          
+        LdSA.adicionar(n.getNroPuesto(),n.getIdFeria(),n.getIdInstrumentosDoc()); 
+        modeloTabla8.addRow(new Object[]{n.getNroPuesto(),n.getIdFeria(),n.getIdInstrumentosDoc()});
+        daoSA.guardarSA(listaSA); 
+        LimpiarCampos_SA();
+        JOptionPane.showMessageDialog(this, "Informador agregado correctamente");
+        LdSA.mostrar();
+    }//GEN-LAST:event_BTN_AGREGAR_STAND_ATENCIONActionPerformed
+
+    private void TF_NRO_PUESTO_SRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_NRO_PUESTO_SRActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TF_NRO_PUESTO_SRActionPerformed
+
+    private void BTN_AGREGAR_STAND_RECREACIONActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTN_AGREGAR_STAND_RECREACIONActionPerformed
+         NodoSR n = new NodoSR();
+        n.setNroPuesto(Integer.parseInt(TF_NRO_PUESTO_SR.getText()));
+        n.setIdFeria(Integer.parseInt(TF_ID_FERIA_SR.getText()));
+        n.setId_Componentes(Integer.parseInt(TF_ID_COMP_SR.getText()));
+        
+
+        listaSR.add(n);          
+        LdSR.adicionar(n.getNroPuesto(),n.getIdFeria(),n.getId_Componentes()); 
+        modeloTabla9.addRow(new Object[]{n.getNroPuesto(),n.getIdFeria(),n.getId_Componentes()});
+        daoSR.guardarSR(listaSR); 
+        LimpiarCampos_SR();
+        JOptionPane.showMessageDialog(this, "Informador agregado correctamente");
+        LdSR.mostrar();
+    }//GEN-LAST:event_BTN_AGREGAR_STAND_RECREACIONActionPerformed
+
+    private void BTN_MOSTRAR_VASITANTES_DE_CADA_STANDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTN_MOSTRAR_VASITANTES_DE_CADA_STANDActionPerformed
+        String ciStr = JOptionPane.showInputDialog(this, "Ingrese CI del visitante a buscar:");
+        int ci;
+        try {
+            ci = Integer.parseInt(ciStr);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "CI inválido", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        CSVis.mostrarVisitantePorCI(ci);
+    }//GEN-LAST:event_BTN_MOSTRAR_VASITANTES_DE_CADA_STANDActionPerformed
+
+    private void BTN_BUSCAR_DOC_XActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTN_BUSCAR_DOC_XActionPerformed
+        buscarDoctor();
+    }//GEN-LAST:event_BTN_BUSCAR_DOC_XActionPerformed
+
+    private void BTN_AGREGAR_DIAGNOSTICOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTN_AGREGAR_DIAGNOSTICOActionPerformed
+        NodoDi n = new NodoDi();
+        n.setId_Visitante(Integer.parseInt(TF_ID_VISIT_DI.getText()));
+        n.setId_Medico(Integer.parseInt(TF_ID_MEDICO_DI.getText()));
+        n.setAntesedentes(TF_ANTECEDENTES_DI.getText());
+        n.setMotivo(TF_MOTIVOS_DI.getText());
+        n.setHallazgo(TF_HALLAZGOS_DI.getText());
+        n.setDesiciones(TF_DECISIONES_DI.getText());
+        n.setTratamiento(TF_TRATAMIENTO_DI.getText());
+        n.setEvaluacion(TF_EVALUACION_DI.getText());
+        n.setId_Feria(Integer.parseInt(TF_ID_FERIA_DI.getText()));
+        n.setFecha(TF_FECHA_DI.getText());
+        
+        
+        listaDi.add(n);          
+        LdDi.adiprincipio(n.getId_Visitante(), n.getId_Medico(), n.getAntesedentes(),n.getMotivo(),n.getHallazgo(),n.getDesiciones(),n.getTratamiento(),n.getEvaluacion(),n.getId_Feria(),n.getFecha()); 
+        modeloTabla10.addRow(new Object[]{n.getId_Visitante(), n.getId_Medico(), n.getAntesedentes(),n.getMotivo(),n.getHallazgo(),n.getDesiciones(),n.getTratamiento(),n.getEvaluacion(),n.getId_Feria(),n.getFecha()});
+        daoDi.guardarDi(listaDi); 
+        LimpiarCampos_DI();
+        JOptionPane.showMessageDialog(this, "Informador agregado correctamente");
+        LdDi.mostrar();
+    }//GEN-LAST:event_BTN_AGREGAR_DIAGNOSTICOActionPerformed
+
+    private void TF_GRUPO_INSTRUMENTOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_GRUPO_INSTRUMENTOActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TF_GRUPO_INSTRUMENTOActionPerformed
+
+    private void BTN_IR_INSTRUMENTO_DE_VISITANTESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTN_IR_INSTRUMENTO_DE_VISITANTESActionPerformed
+        this.JF_INSTRUMENTO.setSize(865,620);
+        this.JF_INSTRUMENTO.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_BTN_IR_INSTRUMENTO_DE_VISITANTESActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        this.JF_INSTRUMENTO.setVisible(false);
+        this.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void BTN_AGREGAR_INSTRUEMNTOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTN_AGREGAR_INSTRUEMNTOActionPerformed
+        InstrumentosDoc v=new InstrumentosDoc(
+            Integer.parseInt(TF_ID_INST.getText()),
+            Integer.parseInt(TF_GRUPO_INSTRUMENTO.getText()),
+            Integer.parseInt(TF_NRO_PUESTO_INST.getText()),
+            TF_NOMBRE_INST.getText(),
+            TF_TIPO_INST.getText(),
+            TF_OBS_INST.getText()
+        );
+        listaPIDOC.add(v);
+        PInsD.adicionar(v);
+        modeloTabla11.addRow(new Object[]{v.getId_instrumento(), v.getGrupo_instrumentos(),v.getNropuesto(),v.getNombre(),v.getTipo(),v.getObservacion()});
+        daoPIDOC.guardarInst(listaPIDOC);
+        LimpiarCampos_PICO();
+        JOptionPane.showMessageDialog(null, "Visitante agregado correctamente");
+    }//GEN-LAST:event_BTN_AGREGAR_INSTRUEMNTOActionPerformed
     
     
     
@@ -1967,6 +3045,57 @@ public class Registo_Visitantes extends javax.swing.JFrame {
         TF_ID_FERIA_PR.setText("");
     }
     
+    
+    public void LimpiarCampos_Componentes(){
+        TF_ID_COMP.setText("");
+        TF_ID_GRUPOCOMP.setText("");
+        TF_NOMBRE_COMP.setText("");
+        TF_UTILIDAD_COMP.setText("");
+        TF_OBSERVACIONES_COMP.setText("");
+    }
+    
+    public void LimpiarCampos_SI(){
+        TF_NRO_PUESTO_SI.setText("");
+        TF_ID_FERIA_SI.setText("");
+        TF_ID_COMP_SI.setText("");
+    }
+    
+    public void LimpiarCampos_SA(){
+        TF_NROPUESTO_SA.setText("");
+        TF_ID_FERIA_SA.setText("");
+        TF_INSTRUMENTOS_SA.setText("");
+    }
+    
+    public void LimpiarCampos_SR(){
+        TF_NROPUESTO_SA.setText("");
+        TF_ID_FERIA_SA.setText("");
+        TF_ID_COMP_SR.setText("");
+    }
+    
+    public void LimpiarCampos_DI(){
+        TF_ID_VISIT_DI.setText("");
+        TF_ID_MEDICO_DI.setText("");
+        TF_ANTECEDENTES_DI.setText("");
+        TF_MOTIVOS_DI.setText("");
+        TF_HALLAZGOS_DI.setText("");
+        TF_DECISIONES_DI.setText("");
+        TF_TRATAMIENTO_DI.setText("");
+        TF_EVALUACION_DI.setText("");
+        TF_ID_FERIA_DI.setText("");
+        TF_FECHA_DI.setText("");
+    }
+    public void LimpiarCampos_PICO(){
+        TF_ID_INST.setText("");
+        TF_GRUPO_INSTRUMENTO.setText("");
+        TF_ANTECEDENTES_DI.setText("");
+        TF_MOTIVOS_DI.setText("");
+        TF_HALLAZGOS_DI.setText("");
+        TF_DECISIONES_DI.setText("");
+        TF_TRATAMIENTO_DI.setText("");
+        TF_EVALUACION_DI.setText("");
+        TF_ID_FERIA_DI.setText("");
+        TF_FECHA_DI.setText("");
+    }
     /**
      * @param args the command line arguments
      */
@@ -2006,9 +3135,17 @@ public class Registo_Visitantes extends javax.swing.JFrame {
     private javax.swing.JButton BTNAgregar_visitante;
     private javax.swing.JButton BTNEditar_visitante;
     private javax.swing.JButton BTNLlenar;
+    private javax.swing.JButton BTN_AGREGAR_COMPONENTES;
+    private javax.swing.JButton BTN_AGREGAR_DIAGNOSTICO;
+    private javax.swing.JButton BTN_AGREGAR_INSTRUEMNTO;
     private javax.swing.JButton BTN_AGREGAR_PERSONAL;
     private javax.swing.JButton BTN_AGREGAR_PERSONAL_ATENCION;
     private javax.swing.JButton BTN_AGREGAR_PERSONAL_INFORMACION;
+    private javax.swing.JButton BTN_AGREGAR_PERSONAL_RECREACION;
+    private javax.swing.JButton BTN_AGREGAR_STAND_ATENCION;
+    private javax.swing.JButton BTN_AGREGAR_STAND_INFORMACION;
+    private javax.swing.JButton BTN_AGREGAR_STAND_RECREACION;
+    private javax.swing.JButton BTN_BUSCAR_DOC_X;
     private javax.swing.JButton BTN_IR_A_VISITANTES_DE_PERSONAL;
     private javax.swing.JButton BTN_IR_COMPONENTES_DE_SI;
     private javax.swing.JButton BTN_IR_COMPONENTES_DE_SR;
@@ -2017,6 +3154,7 @@ public class Registo_Visitantes extends javax.swing.JFrame {
     private javax.swing.JButton BTN_IR_FERIAS_DE_VIST;
     private javax.swing.JButton BTN_IR_FICHAMEDICA_DE_VISIT;
     private javax.swing.JButton BTN_IR_INFORMADORES_DE_SI;
+    private javax.swing.JButton BTN_IR_INSTRUMENTO_DE_VISITANTES;
     private javax.swing.JButton BTN_IR_PERSONAL_DE_VISIT;
     private javax.swing.JButton BTN_IR_REGISTRO_VISITANTES_DE_SR;
     private javax.swing.JButton BTN_IR_REGISTRO_VISITANTE_DE_SA;
@@ -2032,11 +3170,14 @@ public class Registo_Visitantes extends javax.swing.JFrame {
     private javax.swing.JButton BTN_IR_STAND_INFORMACION_DE_VISIT;
     private javax.swing.JButton BTN_IR_STAND_RECRACION_DE_VISIT;
     private javax.swing.JButton BTN_IR_VIST_DE_EJERCICIOS;
+    private javax.swing.JButton BTN_MOSTRAR_VASITANTES_DE_CADA_STAND;
     private javax.swing.JFrame EJERCICIOS;
     private javax.swing.JButton Eliminar_visitante;
     private javax.swing.JLabel Fondo;
     private javax.swing.JLabel Fondo1;
     private javax.swing.JLabel Fondo10;
+    private javax.swing.JLabel Fondo11;
+    private javax.swing.JLabel Fondo12;
     private javax.swing.JLabel Fondo2;
     private javax.swing.JLabel Fondo3;
     private javax.swing.JLabel Fondo4;
@@ -2047,40 +3188,78 @@ public class Registo_Visitantes extends javax.swing.JFrame {
     private javax.swing.JLabel Fondo9;
     private javax.swing.JFrame JF_COMPONENTES;
     private javax.swing.JFrame JF_DOC_ATENCION;
+    private javax.swing.JFrame JF_FICHAS_INFORMATIVAS;
     private javax.swing.JFrame JF_FICHAS_MEDICAS;
     private javax.swing.JFrame JF_INFORMADORES;
+    private javax.swing.JFrame JF_INSTRUMENTO;
     private javax.swing.JFrame JF_RECREACIONISTAS;
     private javax.swing.JFrame JF_REGISTRO_PERSONAL;
     private javax.swing.JFrame JF_STAND_ATENCION;
     private javax.swing.JFrame JF_STAND_INFORMATIVO;
     private javax.swing.JFrame JF_STAND_RECREACION;
+    private javax.swing.JTable TABLA_COMPONENTES;
+    private javax.swing.JTable TABLA_DIAGNOSTICO;
+    private javax.swing.JTable TABLA_INSTRUMENTO;
     private javax.swing.JTable TABLA_PERSONAL;
     private javax.swing.JTable TABLA_PERSONAL_ATENCION;
     private javax.swing.JTable TABLA_PERSONAL_INFORMACION;
     private javax.swing.JTable TABLA_PERSONAL_RECREACION;
+    private javax.swing.JTable TABLA_STAND_ATENCION;
+    private javax.swing.JTable TABLA_STAND_INFORMACION;
+    private javax.swing.JTable TABLA_STAND_RECREACION;
     private javax.swing.JTable TABLA_VISITANTES;
+    private javax.swing.JTextField TF_ANTECEDENTES_DI;
     private javax.swing.JTextField TF_CATE_PER;
     private javax.swing.JTextField TF_CI_PER;
     private javax.swing.JTextField TF_CONT_PER;
+    private javax.swing.JTextField TF_DECISIONES_DI;
     private javax.swing.JTextField TF_EDAD_PER;
+    private javax.swing.JTextField TF_EVALUACION_DI;
+    private javax.swing.JTextField TF_FECHA_DI;
+    private javax.swing.JTextField TF_GRUPO_INSTRUMENTO;
+    private javax.swing.JTextField TF_HALLAZGOS_DI;
     private javax.swing.JTextField TF_HORARIO_PA;
     private javax.swing.JTextField TF_HORARIO_PI;
     private javax.swing.JTextField TF_HORARIO_PR;
+    private javax.swing.JTextField TF_ID_COMP;
+    private javax.swing.JTextField TF_ID_COMP_SI;
+    private javax.swing.JTextField TF_ID_COMP_SR;
+    private javax.swing.JTextField TF_ID_FERIA_DI;
     private javax.swing.JTextField TF_ID_FERIA_PA;
     private javax.swing.JTextField TF_ID_FERIA_PI;
     private javax.swing.JTextField TF_ID_FERIA_PR;
+    private javax.swing.JTextField TF_ID_FERIA_SA;
+    private javax.swing.JTextField TF_ID_FERIA_SI;
+    private javax.swing.JTextField TF_ID_FERIA_SR;
+    private javax.swing.JTextField TF_ID_GRUPOCOMP;
     private javax.swing.JTextField TF_ID_INFORMADOR_PI;
+    private javax.swing.JTextField TF_ID_INST;
+    private javax.swing.JTextField TF_ID_MEDICO_DI;
     private javax.swing.JTextField TF_ID_MEDICO_PA;
     private javax.swing.JTextField TF_ID_PERSONAL;
     private javax.swing.JTextField TF_ID_RECREACIONISTA_PR;
+    private javax.swing.JTextField TF_ID_VISIT_DI;
+    private javax.swing.JTextField TF_INSTRUMENTOS_SA;
     private javax.swing.JTextField TF_MAT_PER;
+    private javax.swing.JTextField TF_MOTIVOS_DI;
+    private javax.swing.JTextField TF_NOMBRE_COMP;
+    private javax.swing.JTextField TF_NOMBRE_INST;
     private javax.swing.JTextField TF_NOM_PER;
     private javax.swing.JTextField TF_NROPUESTO_PA;
+    private javax.swing.JTextField TF_NROPUESTO_SA;
+    private javax.swing.JTextField TF_NRO_PUESTO_INST;
     private javax.swing.JTextField TF_NRO_PUESTO_PI;
     private javax.swing.JTextField TF_NRO_PUESTO_PR;
+    private javax.swing.JTextField TF_NRO_PUESTO_SI;
+    private javax.swing.JTextField TF_NRO_PUESTO_SR;
+    private javax.swing.JTextField TF_OBSERVACIONES_COMP;
+    private javax.swing.JTextField TF_OBS_INST;
     private javax.swing.JTextField TF_PAT_PER;
     private javax.swing.JTextField TF_SEXO_PER;
+    private javax.swing.JTextField TF_TIPO_INST;
     private javax.swing.JTextField TF_TIPO_PER;
+    private javax.swing.JTextField TF_TRATAMIENTO_DI;
+    private javax.swing.JTextField TF_UTILIDAD_COMP;
     private javax.swing.JTextField TF_id_fecha_medica_vis;
     private javax.swing.JTextField TF_id_informaciones_vis;
     private javax.swing.JTextField TF_id_visitante;
@@ -2091,6 +3270,7 @@ public class Registo_Visitantes extends javax.swing.JFrame {
     private javax.swing.JTextField TFnombre_visitante;
     private javax.swing.JTextField TFpaterno_visitante;
     private javax.swing.JTextField TFsexo_visitante;
+    private javax.swing.JTextArea TXTA_RESULTADOS;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -2131,9 +3311,41 @@ public class Registo_Visitantes extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel45;
+    private javax.swing.JLabel jLabel46;
+    private javax.swing.JLabel jLabel47;
+    private javax.swing.JLabel jLabel48;
+    private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel50;
+    private javax.swing.JLabel jLabel51;
+    private javax.swing.JLabel jLabel52;
+    private javax.swing.JLabel jLabel53;
+    private javax.swing.JLabel jLabel54;
+    private javax.swing.JLabel jLabel55;
+    private javax.swing.JLabel jLabel56;
+    private javax.swing.JLabel jLabel57;
+    private javax.swing.JLabel jLabel58;
+    private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel60;
+    private javax.swing.JLabel jLabel61;
+    private javax.swing.JLabel jLabel62;
+    private javax.swing.JLabel jLabel63;
+    private javax.swing.JLabel jLabel64;
+    private javax.swing.JLabel jLabel65;
+    private javax.swing.JLabel jLabel66;
+    private javax.swing.JLabel jLabel67;
+    private javax.swing.JLabel jLabel68;
+    private javax.swing.JLabel jLabel69;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel70;
+    private javax.swing.JLabel jLabel71;
+    private javax.swing.JLabel jLabel72;
+    private javax.swing.JLabel jLabel73;
+    private javax.swing.JLabel jLabel74;
+    private javax.swing.JLabel jLabel75;
+    private javax.swing.JLabel jLabel76;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -2149,6 +3361,10 @@ public class Registo_Visitantes extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
+    private javax.swing.JPanel jPanel21;
+    private javax.swing.JPanel jPanel22;
+    private javax.swing.JPanel jPanel23;
+    private javax.swing.JPanel jPanel25;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -2157,11 +3373,136 @@ public class Registo_Visitantes extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane10;
+    private javax.swing.JScrollPane jScrollPane11;
+    private javax.swing.JScrollPane jScrollPane13;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     // End of variables declaration//GEN-END:variables
+
+    public void buscarDoctor() {
+        String ciBuscar = JOptionPane.showInputDialog("Ingrese CI del doctor:");
+        if (ciBuscar == null || ciBuscar.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar un CI.");
+            return;
+        }
+
+        int CI = Integer.parseInt(ciBuscar);
+        Personal encontrado = null;
+
+        CSimpleRP aux = new CSimpleRP();
+        while (!CSPer.esVacia()) {
+            Personal p = CSPer.eliminar();
+            if (p.getCi() == CI) {
+                encontrado = p;
+            }
+            aux.adicionar(p);
+        }
+        CSPer.vaciar(aux);
+
+        if (encontrado == null) {
+            JOptionPane.showMessageDialog(null, "No existe CI.");
+            return;
+        }
+
+        String info = "--- DATOS DEL DOCTOR ---\n" +
+                      "CI: " + encontrado.getCi() + "\n" +
+                      "Nombre: " + encontrado.getNombre() + " " +
+                        encontrado.getPaterno() + " " + encontrado.getMaterno() + "\n" +
+                      "Edad: " + encontrado.getEdad() + "\n" +
+                      "Sexo: " + encontrado.getSexo() + "\n" +
+                      "Tipo: " + encontrado.getTipo() + "\n" +
+                      "Categoría: " + encontrado.getCategoria() + "\n\n";
+
+        info += "--- UBICACIÓN EN LA FERIA ---\n";
+
+        boolean encontradoStand = false;
+
+        // INFORMADORES
+        NodoPI z = LsPI.getP();
+        while (z != null) {
+            if (z.getId_Informador() == encontrado.getId_Personal()) {
+                info += "Stand de INFORMACIÓN\n" +
+                        "Horario: " + z.getHorario() + "\n" +
+                        "Puesto: " + z.getNroPuesto() + "\n" +
+                        "Feria: " + z.getId_feria() + "\n";
+                encontradoStand = true;
+            }
+            z = z.getSig();
+        }
+
+        // ATENCION
+        NodoPA q = LsPA.getP();
+        while (q != null) {
+            if (q.getId_Medico() == encontrado.getId_Personal()) {
+                info += "Stand de ATENCIÓN\n" +
+                        "Horario: " + q.getHorario() + "\n" +
+                        "Puesto: " + q.getNroPuesto() + "\n" +
+                        "Feria: " + q.getId_feria() + "\n";
+                encontradoStand = true;
+            }
+            q = q.getSig();
+        }
+
+        // RECREACIÓN
+        NodoPR w = LsPR.getP();
+        while (w != null) {
+            if (w.getId_recreacionista() == encontrado.getId_Personal()) {
+                info += "Stand de RECREACIÓN\n" +
+                        "Horario: " + w.getHorario() + "\n" +
+                        "Puesto: " + w.getNroPuesto() + "\n" +
+                        "Feria: " + w.getId_feria() + "\n";
+                encontradoStand = true;
+            }
+            w = w.getSig();
+        }
+
+        if (!encontradoStand) {
+            info += "El personal NO está asignado a ningún stand.";
+        }
+
+        JOptionPane.showMessageDialog(null, info);
+    }
+    
+
+    
+    
+    
+    public void mostrarTodosLosInstrumentos() {
+    List<InstrumentosDoc> lista = daoPIDOC.cargarInst();
+
+    if (lista.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "No existen instrumentos registrados.");
+        return;
+    }
+
+    PilaInsD pila = new PilaInsD();
+    for (InstrumentosDoc inst : lista) {
+        pila.adicionar(inst);
+    }
+
+    StringBuilder sb = new StringBuilder();
+    sb.append("INSTRUMENTOS REGISTRADOS:\n\n");
+
+    while (!pila.esVacia()) {
+        InstrumentosDoc x = pila.eliminar();
+        sb.append("ID: ").append(x.getId_instrumento())
+          .append(" | Grupo: ").append(x.getGrupo_instrumentos())
+          .append(" | Puesto: ").append(x.getNropuesto())
+          .append(" | Nombre: ").append(x.getNombre())
+          .append(" | Tipo: ").append(x.getTipo())
+          .append(" | Obs: ").append(x.getObservacion())
+          .append("\n");
+    }
+
+    JOptionPane.showMessageDialog(this, sb.toString());
+}
 
     
 }

@@ -46,6 +46,32 @@ public class Visitante extends Persona {
     public void setId_Informaciones(int Id_Informaciones) {
         this.Id_Informaciones = Id_Informaciones;
     }
-    
-    
+    @Override
+    public String toString() {
+        return  getCi()+";"+getNombre()+";"+getPaterno()+";"+getMaterno()+";"+getEdad()+";"+getSexo()+";"+getContacto()+";"+Id_Visitante+";"+Id_FichasMedicas+";"+Id_Informaciones;
+    }
+    public static Visitante fromString(String linea) {
+        try {
+        String[] p = linea.split(";");
+
+        if (p.length != 10) return null; // Línea inválida → ignorar
+
+        return new Visitante(
+                Integer.parseInt(p[0]),  
+                p[1],                    
+                p[2],                    
+                p[3],                    
+                Integer.parseInt(p[4]),  
+                p[5],                    
+                Integer.parseInt(p[6]),  
+                Integer.parseInt(p[7]),  
+                Integer.parseInt(p[8]),  
+                Integer.parseInt(p[9])   
+        );
+
+        } catch (Exception e) {
+            System.out.println("Error leyendo línea: " + linea);
+            return null;
+        }
+    }
 }

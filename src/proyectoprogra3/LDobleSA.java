@@ -14,13 +14,11 @@ public class LDobleSA {
     public void setP(NodoSA p) {
         this.p = p;
     }
-    public void adicionar(int np, int idf, int idmd,PilaInsD ind, LSimplePA pa) {
+    public void adicionar(int np, int idf,int idins) {
 		NodoSA nue=new NodoSA();
 		nue.setNroPuesto(np);
                 nue.setIdFeria(idf);
-                nue.setId_MedicamentosDispo(idmd);
-                nue.setPid(ind);
-                nue.setLpa(pa);
+                nue.setIdInstrumentosDoc(idins);
 		if(getP()==null) {
 			setP(nue);
 		}
@@ -37,11 +35,8 @@ public class LDobleSA {
     public void mostrar() {
 		NodoSA w=getP();
 		while(w!=null) {
-			System.out.println("NroPuesto"+w.getNroPuesto()+" | Id Feria: "+w.getIdFeria()+" | Id Medicamentos Disponibles: "+w.getId_MedicamentosDispo());
-                        System.out.println("Componentes medico:");
-                        w.getPid().mostrar();
-                        System.out.println("Datos de Medicos: ");
-                        w.getLpa().mostrar();
+			System.out.println("NroPuesto"+w.getNroPuesto()+" | Id Feria: "+w.getIdFeria()+" | Id instrumentos: "+w.getIdInstrumentosDoc());
+                        
 			w=w.getSig();
 		}
     }

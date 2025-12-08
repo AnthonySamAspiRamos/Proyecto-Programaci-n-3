@@ -2,7 +2,7 @@ package proyectoprogra3;
 
 public class CSimpleRP {
     private int max=50;
-	private RefPersonal v[]=new RefPersonal[max+1];
+	private Personal v[]=new Personal[max+1];
 	private int init,fin;
 	
 	public CSimpleRP() {
@@ -27,7 +27,7 @@ public class CSimpleRP {
 	public int nroElemen() {
 		return fin-init;
 	}
-	public void adicionar(RefPersonal ex) {
+	public void adicionar(Personal ex) {
 		if(!esLlena()) {
 			v[fin+1]=ex;
 			fin++;
@@ -36,8 +36,8 @@ public class CSimpleRP {
 			System.out.println("Cola Llena");
 		}
 	}
-	public RefPersonal eliminar() {
-		RefPersonal elem=null;
+	public Personal eliminar() {
+		Personal elem=null;
 		if(!esVacia()) {
 			elem=v[init+1];
 			init++;
@@ -56,7 +56,7 @@ public class CSimpleRP {
 	public void mostrar() {
 		CSimpleRP aux=new CSimpleRP();
 		while(!esVacia()) {
-			RefPersonal e=eliminar();
+			Personal e=eliminar();
 			e.mostrar();
 			aux.adicionar(e);
 		}

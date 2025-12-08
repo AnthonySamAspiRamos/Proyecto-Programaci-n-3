@@ -5,27 +5,28 @@ public class PilaInsD {
     private InstrumentosDoc v[]=new InstrumentosDoc[max+1];
     private int tope;
     
-    PilaInsD ()
+    
+    public PilaInsD ()
     {
 	tope = 0;
     }
-    boolean esVacia ()
+    public boolean esVacia ()
     {
 	if (tope == 0)
 	    return (true);
 	return (false);
     }
-    boolean esLlena ()
+    public boolean esLlena ()
     {
 	if (tope == max)
 	    return (true);
 	return (false);
     }
-    int nroelem ()
+    public int nroelem ()
     {
 	return (tope);
     }
-    void adicionar (InstrumentosDoc elem)
+    public void adicionar (InstrumentosDoc elem)
     {
 	if (!esLlena ())
 	{
@@ -35,7 +36,7 @@ public class PilaInsD {
 	else
 	    System.out.println ("Pila llena");
     }
-    InstrumentosDoc eliminar ()
+    public InstrumentosDoc eliminar ()
     {
 	InstrumentosDoc elem = null;
 	if (!esVacia ())
@@ -47,7 +48,7 @@ public class PilaInsD {
 	    System.out.println ("Pila vacia");
 	return (elem);
     }
-    void mostrar ()
+    public void mostrar ()
     {
 	InstrumentosDoc elem;
 	if (esVacia ())
@@ -65,7 +66,7 @@ public class PilaInsD {
 	    vaciar(aux);
 	}
     }
-    void vaciar (PilaInsD a)
+    public void vaciar (PilaInsD a)
     {
 	while (!a.esVacia ())
 	    adicionar (a.eliminar ());

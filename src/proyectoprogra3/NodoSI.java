@@ -2,7 +2,7 @@ package proyectoprogra3;
 
 public class NodoSI {
     private int NroPuesto, IdFeria, Id_Componentes;
-    private LSimplePI pi;
+
     private NodoSI ant,sig;
     
     public NodoSI(){
@@ -33,14 +33,7 @@ public class NodoSI {
         this.Id_Componentes = Id_Componentes;
     }
 
-    public LSimplePI getPi() {
-        return pi;
-    }
-
-    public void setPi(LSimplePI pi) {
-        this.pi = pi;
-    }
-
+    
     public NodoSI getAnt() {
         return ant;
     }
@@ -56,5 +49,18 @@ public class NodoSI {
     public void setSig(NodoSI sig) {
         this.sig = sig;
     }
-    
+    @Override
+    public String toString() {
+        // Guardar separado por comas
+        return NroPuesto + ";" +IdFeria + ";" + Id_Componentes;
+    }
+
+    public static NodoSI fromString(String linea) {
+        String[] datos = linea.split(";");
+        NodoSI n = new NodoSI();
+        n.setNroPuesto(Integer.parseInt(datos[0]));
+        n.setIdFeria(Integer.parseInt(datos[1]));
+        n.setId_Componentes(Integer.parseInt(datos[2]));
+        return n;
+    }
 }

@@ -32,8 +32,10 @@ public class LSimpleC {
         }
         System.out.println(c);
     }
-    public void adiFinal(String n,String u,String o){
+    public void adiFinal(int idc,int idgc,String n,String u,String o){
         NodoC nuevo=new NodoC();
+        nuevo.setId_componente(idc);
+        nuevo.setId_GrupoComponente(idgc);
         nuevo.setNombre(n);
         nuevo.setUtilidad(u);
         nuevo.setObservaciones(o);
@@ -74,7 +76,7 @@ public class LSimpleC {
     public void mostrar(){
         NodoC e=getP();
         while (e!=null){
-            System.out.println("Nombre: "+e.getNombre()+" | Utilidad: "+e.getUtilidad()+" | Observaciones: "+e.getObservaciones());
+            System.out.println("id_Componente: "+e.getId_componente()+" | GrupoComponente:  "+e.getId_GrupoComponente()+" | Nombre: "+e.getNombre()+" | Utilidad: "+e.getUtilidad()+" | Observaciones: "+e.getObservaciones());
             e=e.getSig();
         }
     }

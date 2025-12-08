@@ -2,8 +2,7 @@ package proyectoprogra3;
 
 public class NodoSR {
     private int NroPuesto, IdFeria, Id_Componentes;
-    private LSimplePR lpr;
-    private LDobleJ lj;
+    
     private NodoSR sig,ant;
     
     public NodoSR(){
@@ -34,22 +33,6 @@ public class NodoSR {
         this.Id_Componentes = Id_Componentes;
     }
 
-    public LSimplePR getLpr() {
-        return lpr;
-    }
-
-    public void setLpr(LSimplePR lpr) {
-        this.lpr = lpr;
-    }
-
-    public LDobleJ getLj() {
-        return lj;
-    }
-
-    public void setLj(LDobleJ lj) {
-        this.lj = lj;
-    }
-
     public NodoSR getSig() {
         return sig;
     }
@@ -66,4 +49,18 @@ public class NodoSR {
         this.ant = ant;
     }
     
+    @Override
+    public String toString() {
+        // Guardar separado por comas
+        return NroPuesto + ";" +IdFeria + ";" + Id_Componentes;
+    }
+
+    public static NodoSR fromString(String linea) {
+        String[] datos = linea.split(";");
+        NodoSR n = new NodoSR();
+        n.setNroPuesto(Integer.parseInt(datos[0]));
+        n.setIdFeria(Integer.parseInt(datos[1]));
+        n.setId_Componentes(Integer.parseInt(datos[2]));
+        return n;
+    }
 }

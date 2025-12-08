@@ -4,7 +4,7 @@ package proyectoprogra3;
 public class NodoPI {
     private int Id_Informador;
     private String Horario;
-    private Personal p;
+    private int NroPuesto,id_feria;
     private NodoPI sig;
     
     public NodoPI(){
@@ -27,13 +27,25 @@ public class NodoPI {
         this.Horario = Horario;
     }
 
-    public Personal getP() {
-        return p;
+    
+
+    public int getNroPuesto() {
+        return NroPuesto;
     }
 
-    public void setP(Personal p) {
-        this.p = p;
+    public void setNroPuesto(int NroPuesto) {
+        this.NroPuesto = NroPuesto;
     }
+
+    public int getId_feria() {
+        return id_feria;
+    }
+
+    public void setId_feria(int id_feria) {
+        this.id_feria = id_feria;
+    }
+    
+    
 
     public NodoPI getSig() {
         return sig;
@@ -43,5 +55,19 @@ public class NodoPI {
         this.sig = sig;
     }
     
-    
+    @Override
+    public String toString() {
+        // Guardar separado por comas
+        return Id_Informador + ";" + Horario + ";" + NroPuesto + ";" + id_feria;
+    }
+
+    public static NodoPI fromString(String linea) {
+        String[] datos = linea.split(";");
+        NodoPI n = new NodoPI();
+        n.setId_Informador(Integer.parseInt(datos[0]));
+        n.setHorario(datos[1]);
+        n.setNroPuesto(Integer.parseInt(datos[2]));
+        n.setId_feria(Integer.parseInt(datos[3]));
+        return n;
+    }
 }

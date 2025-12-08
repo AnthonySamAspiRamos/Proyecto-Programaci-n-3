@@ -1,5 +1,7 @@
 package proyectoprogra3;
 
+import javax.swing.JOptionPane;
+
 public class CSimpleV {
     private int max=50;
     private Visitante v[]=new Visitante[max+1];
@@ -68,4 +70,52 @@ public class CSimpleV {
 		}
 			
 	}
+        
+        
+        public Visitante buscarRecursivo(int pos, int ciBuscado) {
+                    if (pos > fin) {
+                        return null;
+                    }
+
+                    if (v[pos] != null && v[pos].getCi() == ciBuscado) {
+                        return v[pos]; 
+                    }
+
+                    return buscarRecursivo(pos + 1, ciBuscado); 
+                }
+
+                public Visitante buscarVisitante(int ciBuscado) {
+                    if (esVacia()) return null;
+                    return buscarRecursivo(init + 1, ciBuscado);
+                }
+
+    public void mostrarVisitantePorCI(int ci) {
+        if (esVacia()) {
+            JOptionPane.showMessageDialog(null, "No se encontró el visitante con CI " + ci);
+            return;
+        }
+
+        Visitante v = eliminar();
+        if (v.getCi() == ci) {
+            JOptionPane.showMessageDialog(null, 
+            "CI: " + v.getCi() +
+            "\nNombre: " + v.getNombre() +
+            "\nPaterno: " + v.getPaterno() +
+            "\nMaterno: " + v.getMaterno() +
+            "\nEdad: " + v.getEdad() +
+            "\nSexo: " + v.getSexo() +
+            "\nContacto: " + v.getContacto() +
+            "\nId Visitante: " + v.getId_Visitante() +
+            "\nId Fichas Médicas: " + v.getId_FichasMedicas() +
+            "\nId Informaciones: " + v.getId_Informaciones()
+            );
+            CSimpleV aux = new CSimpleV();
+            aux.adicionar(v);
+            vaciar(aux);
+            return;
+        }
+        mostrarVisitantePorCI(ci);
+        adicionar(v);
+    }
+
 }
